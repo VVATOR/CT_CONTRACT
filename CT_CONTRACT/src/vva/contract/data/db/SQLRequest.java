@@ -1,12 +1,9 @@
 package vva.contract.data.db;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.util.Random;
-import sun.security.acl.OwnerImpl;
 
 public class SQLRequest {
 	
@@ -20,8 +17,8 @@ public class SQLRequest {
 
 	public SQLRequest() throws Exception  {
 		// TODO Auto-generated constructor stub
-		//oOC = new OracleConnection("plm.gskbgomel.by", "SEARCH", "1521", "proeuser", "proeuser");
-		oOC = new OracleConnection("localhost", "SEARCH", "1521", "PROEUSER", "masterkey");
+		oOC = new OracleConnection("plm.gskbgomel.by", "SEARCH", "1521", "proeuser", "proeuser");
+		//oOC = new OracleConnection("localhost", "SEARCH", "1521", "PROEUSER", "masterkey");
 		oOC.getConnection();
 		stmt=oOC.getCon().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
