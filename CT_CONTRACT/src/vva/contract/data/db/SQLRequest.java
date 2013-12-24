@@ -20,8 +20,8 @@ public class SQLRequest {
 
 	public SQLRequest() throws Exception  {
 		// TODO Auto-generated constructor stub
-		//oOC = new OracleConnection("plm.gskbgomel.by", "SEARCH", "1521", "proeuser", "proeuser");
-		oOC = new OracleConnection("localhost", "SEARCH", "1521", "PROEUSER", "masterkey");
+		oOC = new OracleConnection("plm.gskbgomel.by", "SEARCH", "1521", "proeuser", "proeuser");
+		//oOC = new OracleConnection("localhost", "SEARCH", "1521", "PROEUSER", "masterkey");
 		oOC.getConnection();
 		stmt=oOC.getCon().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	}
