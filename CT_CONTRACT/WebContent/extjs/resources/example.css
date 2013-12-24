@@ -1,0 +1,21 @@
+.icon-print { 
+	background-image: url(images/printer.png) !important; 
+}
+
+.icon-mail { 
+	background-image: url(images/mail.png) !important; 
+}
+.icon-email32 { 
+	background-image: url(images/e_mail32.png) !important; 
+	width: 100%;
+	height: 100%;
+	margin: 0 0 0 0;
+}
+
+
+.icon-menu-excel { 
+	background-image: url(images/excel.png) !important; 
+	width: 100%;
+	height: 100%;
+	margin: 0 0 0 0;
+}
