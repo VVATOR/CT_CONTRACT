@@ -19,7 +19,7 @@ public class IBRequest{
     public void Disconnect() throws Exception{
     	if(rs!=null){rs.close(); }
     	if(stmt!=null){	stmt.close(); }
-    	ibC.disconnect();    	
+    	ibC.disconnect();    	 
     }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
     
