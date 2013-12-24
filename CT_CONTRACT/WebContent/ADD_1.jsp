@@ -66,7 +66,7 @@ if(request.getParameter("countPerformance")!=null){
 }
 
 
-//------------ массивы
+//------------ + массивы 
 for(int i=0;i<Integer.parseInt(countCustomers);i++){
 	lstCustomers.add(URLDecoder.decode(new String(request.getParameter("addCustomer"+i)),"windows-1251"));
 	System.out.println("addCustomer"+i);
