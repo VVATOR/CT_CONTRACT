@@ -15,7 +15,7 @@ public class IBRequest{
     	ibC.getConnection();    	
     	stmt = (Statement) ibC.getCon().createStatement();
     }
-    
+    //
     public void Disconnect() throws Exception{
     	if(rs!=null){rs.close(); }
     	if(stmt!=null){	stmt.close(); }
@@ -25,6 +25,7 @@ public class IBRequest{
     
     public void sqlGetDogo() throws SQLException{
     	String sql="select * from DOGOVORA";
+    	
     	rs=stmt.executeQuery(sql);
     	rs.next();
     	System.out.println("aaaaaaaaaaaaa"+rs.getString(1));
