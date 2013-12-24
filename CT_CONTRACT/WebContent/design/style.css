@@ -1,0 +1,75 @@
+.icon_NEW_CONTRACT{
+ 
+background-image: url(images/document-icon32.png)  !important; 
+}
+
+
+.icon_EDIT_CONTRACT{
+background-image: url(images/folder-contract-icon.png) !important; 
+
+}
+
+/* меню*/
+.menu-icon-printer{
+background-image: url(images/printer.png) !important; 
+}
+
+.menu-icon-excel{
+background-image: url(images/excel.png) !important; 
+}
+
+
+
+
+
+/* оформление grid*/
+
+    /** четные строки*/
+    .linear .x-grid-row .x-grid-cell {
+        background: #fff;
+        border: 0px solid #03476F;
+        color: #000;
+    }
+    
+    /**нечетные строки*/
+    .linear .x-grid-row-alt  .x-grid-cell {
+        background: #FFFFF0;/*#BFEFFF;*//* rgb(211, 228, 229);*/
+        border: 0px solid #03476F;
+        color: #000000;
+    }
+
+    /**наведение на строку grid*/
+    .x-grid-row-over .x-grid-cell,.x-grid-row-over .x-grid-rowwrap-div {
+        background: /*#99BCBF*/ #E6E6FA !important;
+        border-left: 0px solid #03476F;;
+        border-right-width: 0px solid #03476F;
+        border-color: black;
+        /* 0px 1px 1px solid #03476F;*/
+        color: #000000;
+    }
+
+
+.pn{
+background: #FFFFF0;
+}
+
+
+
+
+.allIcon{
+background-image: url(images/printer.png) !important; 
+}
+
+.pagg
+{ 
+background-color: #CAFF70 !important;
+}
+
+
+
+
+.aaaa{
+background: red;
+}
+
+
