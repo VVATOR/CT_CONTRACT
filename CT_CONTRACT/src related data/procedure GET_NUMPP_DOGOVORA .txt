@@ -1,0 +1,90 @@
+/*
+процедура дл€ нумерации договоров по пор€дку
+*/
+CREATE PROCEDURE GET_NUMPP_DOGOVORA 
+RETURNS (
+    I INTEGER,
+    ID_DOG INTEGER,
+    KONTROL VARCHAR(255),
+    ID_COUNT INTEGER,
+    ID_ACCOUNT INTEGER,
+    NAMEDOG CHAR(100),
+    NOM_DOG CHAR(60),
+    DATA_W DATE,
+    SROK_PLAT DATE,
+    SUMMA NUMERIC(15,2),
+    CURRENCY CHAR(10),
+    NOTE VARCHAR(500),
+    IS_DEL INTEGER,
+    USER_FIO CHAR(50),
+    STATUS CHAR(2),
+    FULLNAMEDOG CHAR(120),
+    PRIM CHAR(50),
+    USL_POST CHAR(150),
+    DATE_STATUS TIMESTAMP,
+    REG_NOM SMALLINT,
+    REG_DATE TIMESTAMP,
+    REG_SECT CHAR(5),
+    REG_INDEX CHAR(10),
+    FULL_NUM CHAR(25),
+    USER_FIO1 SMALLINT)
+AS
+begin
+I=0;
+    For select
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1
+
+    from DOGOVORA
+    into : ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1
+    Do begin
+
+     i=i+1;
+    suspend;
+    end
+end

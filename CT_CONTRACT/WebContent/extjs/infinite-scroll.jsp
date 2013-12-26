@@ -1,7 +1,26 @@
+<%@page import="vva.contract.data.db.SQLRequest"%>
 <%@ page language="java" contentType="text/html; charset=windows-1251"
 	pageEncoding="windows-1251"%>
 	<%//String SessionUser="vikhlaev"; %>
 <script>
+
+<%
+ /// Определение прав доступа
+String ACCESS="-1";
+ 
+SQLRequest r = new SQLRequest();
+if  (r.isAdmin(System.getProperty("user.name"))==true){
+	/*
+		-1 - simple user (looser)
+		 0 - administrator
+	*/	
+	ACCESS="0";
+}
+%>
+
+
+
+
 /*
 
 This file is part of Ext JS 4
@@ -146,11 +165,16 @@ Ext.onReady(function() {
 	    	
             ptype: 'rowexpander',
             collapsed: false,
-            rowBodyTpl : [
-                '<div style="color: red;"> xzxzxzx<br>xaxaxax]]</div>',
+            rowBodyTpl : [                          
+	            <% /// если пользователь имеет доступ то показать ему сумму	                
+	               if  (ACCESS.equals("0")){
+	               		out.println("'<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>'"); 
+	               };
+	            %> ,         
+                '<div style="color: green;"> xzxzxzx<br>xaxaxax]]</div>',
                 '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
                 '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
-                a
+                
             ]
         }], 
        
@@ -408,7 +432,8 @@ Ext.onReady(function() {
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'NOTE',
-	                    text: '<br>(NOTE)'
+	                    text: '<br>(NOTE)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
@@ -418,27 +443,32 @@ Ext.onReady(function() {
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'USER_FIO',
-	                    text: '<br>(USER_FIO)'
+	                    text: '<br>(USER_FIO)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'STATUS',
-	                    text: '<br>(STATUS)'
+	                    text: '<br>(STATUS)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'FULLNAMEDOG',
-	                    text: '<br>(FULLNAMEDOG)'
+	                    text: '<br>(FULLNAMEDOG)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'PRIM',
-	                    text: '<br>(PRIM)'
+	                    text: '<br>(PRIM)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'USL_POST',
-	                    text: '<br>(USL_POST)'
+	                    text: '<br>(USL_POST)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
@@ -468,12 +498,14 @@ Ext.onReady(function() {
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'FULL_NUM',
-	                    text: '<br>(FULL_NUM)'
+	                    text: '<br>(FULL_NUM)',
+	                    renderer : columnWrap
 	                },
 	                {
 	                    xtype: 'gridcolumn',
 	                    dataIndex: 'USER_FIO1',
-	                    text: '<br>(USER_FIO1)'
+	                    text: '<br>(USER_FIO1)',
+	                    renderer : columnWrap
 	                }
 	                /*,
 	                {
