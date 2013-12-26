@@ -106,28 +106,38 @@ color: white;
 <body>
 <div style="width: 100%; height: 30px; background-color: #00ff00;">
 
-Пользователь: <% %>(<%=System.getProperty("user.name") %>) /
+Пользователь: (<%=System.getProperty("user.name") %>) /
 Права: <% 
-String SessionUser=System.getProperty("user.name"); 
+
+
+/// Определение прав доступа
+String ACCESS="-1";
+/*
+-1 - simple user (looser)
+ 0 - administrator
+*/	
+
 SQLRequest sqlRequest = new SQLRequest();
-if (sqlRequest.isAdmin("vikavg"/*System.getProperty("user.name")*/)==true){
-	out.print("Администратор");
+if  (sqlRequest.isAdmin(System.getProperty("user.name"))==true){
+
+	ACCESS="0";
+	out.println("администратор");
 }else{
-	out.print("user");
-};
+	ACCESS="-1";
+	out.println("user");
+}
 
 %>
 </div>
 
 
 
-<%@ include file="extjs/infinite-scroll.jsp" %>
+<%//@ include file="extjs/infinite-scroll.jsp" %>
+<jsp:include page="extjs/infinite-scroll.jsp"></jsp:include>
 		<div class="content" id="content"
 			style="width: 1200px; margin: 0 auto; background: gray;">
 		</div>
-		
-		
-		<%@ include file="extjs/win_add.jsp" %>
+<%//@ include file="extjs/win_add.jsp" %>
 
 <br>
 

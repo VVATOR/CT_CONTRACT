@@ -46,6 +46,12 @@ function columnWordWrap(val) {
 	return '<div style="white-space:word-wrap !important;">' + val + '</div>';
 }
 
+
+//для многострочного текста
+function columnWordWrapSIMBOL(val) {
+	return '<div style="word-wrap:word-wrap !important;">' + val + '</div>';
+}
+
 // ссылкогенератор
 function renderTopic(value, p, record) {
 	return Ext.String.format('<a href="{2}" target="_blank">{0}</a>', value,
