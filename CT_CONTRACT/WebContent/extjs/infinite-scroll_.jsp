@@ -60,33 +60,16 @@ Ext.onReady(function() {
 	Ext.define('ModelDocumentKOKT', {
 		extend : 'Ext.data.Model',
 		fields: [
-		         'I',
-		         'ID_DOG',
-		         'KONTROL',
-		         'ID_COUNT',
-		         'ID_ACCOUNT',
-		         'NAMEDOG',
-		         'NOM_DOG',
-		         'DATA_W',
-		         'SROK_PLAT',
-		         'SUMMA',
-		         'CURRENCY',
-		         'NOTE',
-		         'IS_DEL',
-		         'USER_FIO',
-		         'STATUS',
-		         'FULLNAMEDOG',
-		         'PRIM',
-		         'USL_POST',
-		         //'KOD1C',
-		         'DATE_STATUS',
-		         'REG_NOM',
-		         'REG_DATE',
-		         'REG_SECT',
-		         'REG_INDEX',
-		         'FULL_NUM',
-		         'USER_FIO1'
-		         
+		         'ID',
+		         'DEPARTMENT_ID',
+		         'NUM',
+		         'THEME',
+		         'SESSION_USER',
+		         'DATE_REG',
+		         'DEADLINE',
+		         'CUSTOMER',
+		         'PERFORMANCE',
+		         'RIGHTHOLDER'
 			    ],
 		idProperty : 'threadid'
 	});
@@ -148,8 +131,8 @@ Ext.onReady(function() {
             collapsed: false,
             rowBodyTpl : [
                 '<div style="color: red;"> xzxzxzx<br>xaxaxax]]</div>',
-                '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-                '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
+                '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {PERFORMANCE}</p>',
+                '<p><b>Номера охранных документов на ОППС:</b> <br> {RIGHTHOLDER}</p><br>',
                 a
             ]
         }], 
@@ -352,130 +335,44 @@ Ext.onReady(function() {
 		columns: [
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'I',
-	                    text: 'номер<br>(ID_DOG)'
+	                    dataIndex: 'ID',
+	                    text: 'Идентификатор<br>(ID)'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_DOG',
-	                    text: 'Идентификатор<br>(ID_DOG)'
+	                    dataIndex: 'DEPARTMENT_ID',
+	                    text: 'отдел<br>(DEPARTMENT_ID)'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'KONTROL',
-	                    text: '<br>(KONTROL)'
+	                    dataIndex: 'NUM',
+	                    text: 'Номер<br>(NUM)'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_COUNT',
-	                    text: '<br>(ID_COUNT)'
+	                    dataIndex: 'THEME',
+	                    text: 'Тема<br>(наименование)<br>договора'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_ACCOUNT',
-	                    text: '<br>ID_ACCOUNT'
+	                    dataIndex: 'SESSION_USER',
+	                    text: 'Добавил<br>(SESSION_USER)'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NAMEDOG',
-	                    text: '<br>(NAMEDOG)'
+	                    dataIndex: 'CUSTOMER',
+	                    text: 'Заказчик<br>(CUSTOMER)'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NOM_DOG',
-	                    text: '<br>(NOM_DOG)'
+	                    dataIndex: 'PERFORMANCE',
+	                    text: 'Исполнением<br>(PERFORMANCE)'
 	                },
 	                {
 	                    xtype: 'gridcolumn',
-	                    dataIndex: 'DATA_W',
-	                    text: '<br>(DATA_W)'
+	                    dataIndex: 'RIGHTHOLDER',
+	                    text: 'Правообладатель<br>(RIGHTHOLDER)'
 	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'SROK_PLAT',
-	                    text: '<br>(SROK_PLAT)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'SUMMA',
-	                    text: '<br>(SUMMA)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'CURRENCY',
-	                    text: '<br>(CURRENCY)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NOTE',
-	                    text: '<br>(NOTE)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'IS_DEL',
-	                    text: '<br>(IS_DEL)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USER_FIO',
-	                    text: '<br>(USER_FIO)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'STATUS',
-	                    text: '<br>(STATUS)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'FULLNAMEDOG',
-	                    text: '<br>(FULLNAMEDOG)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'PRIM',
-	                    text: '<br>(PRIM)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USL_POST',
-	                    text: '<br>(USL_POST)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'DATE_STATUS',
-	                    text: '<br>(DATE_STATUS)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_NOM',
-	                    text: '<br>(REG_NOM)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_DATE',
-	                    text: '<br>(REG_DATE)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_SECT',
-	                    text: '<br>(REG_SECT)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_INDEX',
-	                    text: '<br>(REG_INDEX)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'FULL_NUM',
-	                    text: '<br>(FULL_NUM)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USER_FIO1',
-	                    text: '<br>(USER_FIO1)'
-	                }
-	                /*,
 	                {
 	                    xtype: 'gridcolumn',
 	                    sortable: false,
@@ -495,13 +392,12 @@ Ext.onReady(function() {
 	                        }
 	                    ]
 	                }
-	                */
 	            ],
 	            tools: [
 	                    {
 	                        xtype: 'tool',
 	                        handler: function(event, toolEl, owner, tool) {
-	                            var params = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+	                            var params = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes"
 	                            window.open("http://ya.ru/", "Yandex", params)
 
 	                        },
@@ -522,7 +418,7 @@ Ext.onReady(function() {
 			
 			getRowClass : function(record) {
 				var typeRow = 'typeRow';
-				switch (record.get('ID_DOG')) {
+				switch (record.get('id')) {
 				case 'Да':
 					typeRow = 'control-card';
 					break;
