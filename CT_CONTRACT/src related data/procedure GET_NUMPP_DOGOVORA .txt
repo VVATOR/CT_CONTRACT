@@ -1,5 +1,6 @@
 /*
-процедура для нумерации договоров по порядку
+InterBase procedure 
+хранимая процедура для нумерации договоров по порядку
 */
 CREATE PROCEDURE GET_NUMPP_DOGOVORA 
 RETURNS (
