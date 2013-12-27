@@ -110,8 +110,7 @@ Ext.onReady(function() {
 		         'REG_SECT',
 		         'REG_INDEX',
 		         'FULL_NUM',
-		         'USER_FIO1'
-		         
+		         'USER_FIO1'		         
 			    ],
 		idProperty : 'threadid'
 	});
@@ -151,10 +150,25 @@ Ext.onReady(function() {
 	
 	var pluginExpanded = true; // для панели пэйджинга
 	
+	var movieTpl = new Ext.XTemplate(
+		    '<tpl for="."><div class="movie-item">',
+		        '<h2><span>Year: {SUMMA}<br />Rating: {THEME}</span>{REG_DATE}</h2>',
+		        '{description}',
+		    '</div></tpl>'
+		);
+	
 	var a='{THEME}';
-	var grid = Ext.create('Ext.grid.Panel', {
-		Cmp:'gv',  //vv
+	
+	var 
+	/// tplGRDcellBTN
+		tplGRDcellBTN  = '<a class="imgGRD-edit">{STATUS}</a>';
+		tplGRDcellBTN += '<a class="imgGRD-add"><br> add</a><br>';
+		tplGRDcellBTN += '<a class="imgGRD-new"> add</a>';
+		
+    var grid1 = Ext.create('Ext.grid.Panel', {
+    	Cmp:'gv',  //vv
 		cls : 'linear',
+        iconCls: 'icon-grid',
 		columnLines : true, // линии колонок и строк
 		bottom: 0,
 		store : store,
@@ -162,43 +176,6 @@ Ext.onReady(function() {
 		height : 500,
 		title : ' ', // Данные
 		
-		
-		
-		
-
-	    
-	    plugins: [{
-	    	
-            ptype: 'rowexpander',
-            collapsed: false,
-            rowBodyTpl : [                          
-	            <% /// если пользователь имеет доступ то показать ему сумму	                
-	               if  (ACCESS.equals("0")){
-	               		out.println("'<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>'"); 
-	               };
-	            %> ,         
-                '<div style="color: green;"> xzxzxzx<br>xaxaxax]]</div>',
-                '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-                '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
-                
-            ]
-        }], 
-       
-        collapsible: true,
-        animCollapse: true,
-		
-		
-		
-		
-		
-		
-		
-		///verticalScrollerType : 'paginggridscroller',
-	   /* verticalScroller: {
-            xtype: 'paginggridscroller',
-            activePrefetch: false
-        },*/
-        
 		disableSelection : false,
 		invalidateScrollerOnRefresh : false,
 		dockedItems: [  
@@ -353,605 +330,272 @@ Ext.onReady(function() {
 				                        ]
 				                    }
 								}
-		                         ]
+		                     ]
 		                }
 		            ],
-       
-		        
-		            
-		// grid columns
-		/*columns : [ {
-			xtype : 'rownumberer',
-			// flex: 1,
-			width : 40,
-			header : '№ п/п'
-		// ,renderer : renderTopic
-		}, {
-			header : "id",
-			dataIndex : 'id',
 
-			width : 40,
-
-			hidden : false, // скрыть при старте
-			hideable : true, // возможность скрывать/показывать колонку
-
-			sortable : true
-		// разрешить сортировку
-
-		}],*/
-		columns: [
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'I',
-	                    text: 'номер<br>(ID_DOG)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_DOG',
-	                    text: 'Идентификатор<br>(ID_DOG)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'KONTROL',
-	                    text: '<br>(KONTROL)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_COUNT',
-	                    text: '<br>(ID_COUNT)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_ACCOUNT',
-	                    text: '<br>ID_ACCOUNT'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NAMEDOG',
-	                    text: '<br>(NAMEDOG)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NOM_DOG',
-	                    text: '<br>(NOM_DOG)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'DATA_W',
-	                    text: '<br>(DATA_W)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'SROK_PLAT',
-	                    text: '<br>(SROK_PLAT)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'SUMMA',
-	                    text: '<br>(SUMMA)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'CURRENCY',
-	                    text: '<br>(CURRENCY)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NOTE',
-	                    text: '<br>(NOTE)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'IS_DEL',
-	                    text: '<br>(IS_DEL)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USER_FIO',
-	                    text: '<br>(USER_FIO)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'STATUS',
-	                    text: '<br>(STATUS)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'FULLNAMEDOG',
-	                    text: '<br>(FULLNAMEDOG)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'PRIM',
-	                    text: '<br>(PRIM)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USL_POST',
-	                    text: '<br>(USL_POST)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'DATE_STATUS',
-	                    text: '<br>(DATE_STATUS)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_NOM',
-	                    text: '<br>(REG_NOM)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_DATE',
-	                    text: '<br>(REG_DATE)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_SECT',
-	                    text: '<br>(REG_SECT)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_INDEX',
-	                    text: '<br>(REG_INDEX)'
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'FULL_NUM',
-	                    text: '<br>(FULL_NUM)',
-	                    renderer : columnWrap
-	                },
-	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USER_FIO1',
-	                    text: '<br>(USER_FIO1)',
-	                    renderer : columnWrap
-	                }
-	                /*,
-	                {
-	                    xtype: 'gridcolumn',
-	                    sortable: false,
-	                    text: 'Сроки',
-	                    columns: [
-	                        {
-	                            xtype: 'datecolumn',
-	                            dataIndex: 'DATE_REG',
-	                            text: 'Дата регистрации<br>(DATE_REG)',
-	                            format: 'd.m.Y'
-	                        },
-	                        {
-	                            xtype: 'datecolumn',
-	                            dataIndex: 'DEADLINE',
-	                            text: 'Срок исполнения<br>(DEADLINE)',
-	                            format: 'd.m.Y'
-	                        }
-	                    ]
-	                }
-	                */
-	            ],
-	            tools: [
-	                    {
-	                        xtype: 'tool',
-	                        handler: function(event, toolEl, owner, tool) {
-	                            var params = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
-	                            window.open("http://ya.ru/", "Yandex", params)
-
-	                        },
-	                        rtl: false,
-	                        tooltip: 'Справка',
-	                        type: 'help'
-	                    },
-	                    {
-	                        xtype: 'tool',
-	                        type: 'up'
-	                    }
-	                ],
-		viewConfig : {
-			loadMask : false,
-			trackOver : false,
-			stripeRows : true,
-			enableTextSelection : true,
-			
-			getRowClass : function(record) {
-				var typeRow = 'typeRow';
-				switch (record.get('ID_DOG')) {
-				case 'Да':
-					typeRow = 'control-card';
-					break;
-				case 'Нет':
-					typeRow = 'linear';
-					break;
-				}
-				;
-
-				return typeRow;
-			}
-		},
-		renderTo : 'content'// ,Ext.getBody(), //
-	});
-
-	// trigger the data store load
-	store.guaranteeRange(0, 199);
-
-
-	
-	
-	
-////////////////////////////////////////////////////////////////////////////////////////
-/// окно редактирования записи
-////////////////////////////////////////////////////////////////////////////////////////	
-var winEDIT = new Ext.Window({
-		    title: "Редактирование записи",
-		    modal: true,       // отоображает окно модально  (ShowModal)
-		    constrain: true,   // запрет выхода за экран Даже частью блока
-		    border: true,      //vv
-			loadMask : true,  //vv
-		    width: 700,
-		    height: 800,
-		    layout:'fit',
-		    closable: false,
-		    items: [				
-		        new Ext.form.FormPanel({
-		            frame: true,
-		            
-		            items: [     
-		            { // HTML Content in windows
-					xtype: 'box',
-					width: '100%',
-			        height: '100%',
-					autoEl: {
-							tag: 'iframe',
-							src: 'http://bl-04:8080/DocumentsKOKT/EDITItem.jsp?SessionUser=Vikhlaev&ADMINISTRATOR=true&FULLNAME=%C2%E8%F5%EB%FF%E5%E2+%C2.%C0.&DEPARTMENT=%CA%C8%CE+%C2%D1&editNumber=9628&editNumberDep=385&editProduct=%CE%E1%F9%E5%E5&editOwner=%CA%E8%F1%E5%EB%E5%E2+%C5.%C2.&editRegNumber=%E1%2F%ED&editOutNumber=15545+%EE%F2+22.11.2013&editDocType=%C4%EE%EA%EB%E0%E4%ED%E0%FF+%E7%E0%EF%E8%F1%EA%E0&editDescription=%CE+%F0%E0%E7%F0%E5%F8%E5%ED%E8%E8+%E4%EE%F1%F2%F3%EF%E0+%ED%E0+%F1%E0%E9%F2&editNote=&editControlStatus=%CD%E5%F2&User0=%C2%E8%F5%EB%FF%E5%E2+%C2.%C0.&Status0=%F5%F0%E0%ED%E5%ED%E8%E5&Execute0=%C2%FB%EF%EE%EB%ED%E5%ED%EE&DateOfRead0=25.11.2013&sUsersCount=1&sDepartmentCount=0&sCurrentUsersCount=1&sCurrentDepartmentCount=0&TYPESORTING=all&START_PAGING=&END_PAGING=&selByISPFamily=%C2%F1%E5&selStartDate=01.01.2000&selEndDate=26.11.2013&selIdDep=&selOnControler='
-								//'EDITItem.jsp'
-								/*function(){	
-								return 
-								 'EDITItem.jsp'+
-							     '&ADMINISTRATOR=true&FULLNAME=%C2%E8%F5%EB%FF%E5%E2+%C2.%C0.&DEPARTMENT=%CA%C8%CE+%C2%D1'+
-							     '&editNumber=9628&editNumberDep=385&editProduct=%CE%E1%F9%E5%E5&editOwner=%CA%E8%F1%E5%EB%E5%E2+%C5.%C2.'+
-							     '&editRegNumber=%E1%2F%ED&editOutNumber=15545+%EE%F2+22.11.2013'+
-							     '&editDocType=%C4%EE%EA%EB%E0%E4%ED%E0%FF+%E7%E0%EF%E8%F1%EA%E0'+
-							     '&editDescription=%CE+%F0%E0%E7%F0%E5%F8%E5%ED%E8%E8+%E4%EE%F1%F2%F3%EF%E0+%ED%E0+%F1%E0%E9%F2'+
-							     '&editNote=&editControlStatus=%CD%E5%F2&User0=%C2%E8%F5%EB%FF%E5%E2+%C2.%C0.'+
-							     '&Status0=%F5%F0%E0%ED%E5%ED%E8%E5&Execute0=%C2%FB%EF%EE%EB%ED%E5%ED%EE'+
-							     '&DateOfRead0=25.11.2013&sUsersCount=1&sDepartmentCount=0'+
-							     '&sCurrentUsersCount=1&sCurrentDepartmentCount=0&TYPESORTING=all'+
-							     '&START_PAGING=&END_PAGING=&selByISPFamily=%C2%F1%E5'+
-							     '&selStartDate=01.01.2000&selEndDate=26.11.2013&selIdDep=&selOnControler='
-								}*/
-							}
-					}/*,
-		            {   xtype: "panel",
-		                html: new Ext.XTemplate("<a href='#'>{value}").apply({
-		                    value: 'Не жми!'
-		                })
-		            },{
-		                xtype: 'textfield',
-		                id:'jsID_DEP',
-		                fieldLabel: '№ п/п 1:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsPRODUCT',
-		                fieldLabel: 'Машина:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsAUTHOR',
-		                fieldLabel: 'Отправитель:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsREG_NUMBER',
-		                fieldLabel: '№ регистр.:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsOUT_NUMBER',
-		                fieldLabel: '№ исход:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsDOCTYPE',
-		                fieldLabel: 'Вид документа:'
-		            },{
-		                xtype: 'textarea',
-		                id:'jsDESCRIPTION',
-		                fieldLabel: 'Краткое содержание:',
-		                hideLabel: false,
-		                name: 'msg',
-		                style: 'margin:0', // Remove default margin
-		                flex: 1  // Take up all *remaining* vertical space
-		            },{
-		                xtype: 'textarea',
-		                id:'jsNOTE',
-		                fieldLabel: 'Примечание:',		               
-		                hideLabel: false,
-		                name: 'msg',
-		                style: 'margin:0', // Remove default margin
-		                flex: 1  // Take up all *remaining* vertical space
-		            },{
-		                xtype: 'textfield',
-		                id:'jsCONTROL_STATUS',
-		                fieldLabel: 'На контроле:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsEXECUTE',
-		                fieldLabel: 'Список исполнителей:'
-		            },{
-		                xtype: 'textfield',
-		                id:'poles3',
-		                fieldLabel: 'Копия передана в отделы:'
-		            },{
-		                xtype: 'textfield',
-		                id:'jsFILE_ID',
-		                fieldLabel: 'Файл:'
-		            },{
-		        		xtype:'button',
-		        		id:'frmAdd-btnADD',
-		        		text: 'Редактировать',
-		        		handler: function(key, value) {
-									var form = this.up('form').getForm(),
-									s = '';
-									if (form.isValid()) {
-									    Ext.iterate(form.getValues(), function(key, value) {
-									        s += Ext.util.Format.format("{0} = {1}<br />", key, value);
-									}, this);
-									
-									Ext.Msg.alert('Значение: ', s);
-									}
-		        			
-		        				}
-		        	},{
-		        		xtype:'button',
-		        		id:'frmAdd-btnAbort',
-		        		text: 'Отмена',
-		        			handler: function() {winEDIT.hide();}
-		        	}
-		            */
-		          ]
-		        })        	
-		        	
-		       
-		    ]
-		 });
-	 
-///
-////////////////////////////////////////////////////////////////////////////////////////
-	 
-	 
-////////////////////////////////////////////////////////////////////////////////////////
-/// окно Добавление записи
-////////////////////////////////////////////////////////////////////////////////////////
 		
-		 var winADD = new Ext.Window({
-			    title: "Добавление записи",
-			    modal: true,       // отоображает окно модально  (ShowModal)
-			    constrain: true,   // запрет выхода за экран Даже частью блока
-			    border: true,      //vv
-				loadMask : true,  //vv
-			    width: 700,
-			    height: 800,
-			    layout:'fit',
-			    closable: false,  // Крестик для закрытия окна
-			    items: [
-			        new Ext.form.FormPanel({       
-			            frame: true,
-			            
-			            items: [  
-						{
-							xtype:'button',
-							id:'frmAdd-btnAbort',
-							text: 'Отмена',
-								handler: function() {winADD.hide();}
-						},
-			            { // HTML Content in windows
-						xtype: 'box',
-						width: '100%',
-				        height: '100%',
-						autoEl: {
-								tag: 'iframe',
-								src: 'ADDItem.jsp'
-								}
-						},
-			            {   xtype: "panel",
-			                html: new Ext.XTemplate("<a href='#'>{value}").apply({
-			                    value: 'не жми'
-			                })
-			            },{
-			                xtype: 'textfield',
-			                id:'jsID_DEP',
-			                fieldLabel: '№ п/п 1:'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsPRODUCT',
-			                fieldLabel: 'Машина:',
-			                emptyText: '<%//=SessionUser %>'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsAUTHOR',
-			                fieldLabel: 'Отправитель:'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsREG_NUMBER',
-			                fieldLabel: '№ регистр.:'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsOUT_NUMBER',
-			                fieldLabel: '№ исход:'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsDOCTYPE',
-			                fieldLabel: 'Вид документа:'
-			            },{
-			                xtype: 'textarea',
-			                id:'jsDESCRIPTION',
-			                fieldLabel: 'Краткое содержание:',
-			                hideLabel: false,
-			                name: 'msg1',
-			                style: 'margin:0', // Remove default margin
-			                flex: 1  // Take up all *remaining* vertical space
-			            },{
-			                xtype: 'textarea',
-			                id:'jsNOTE',
-			                fieldLabel: 'Примечание:',		               
-			                hideLabel: false,
-			                name: 'msg',
-			                style: 'margin:0', // Remove default margin
-			                flex: 1  // Take up all *remaining* vertical space
-			            },{
-			                xtype: 'textfield',
-			                id:'jsCONTROL_STATUS',
-			                fieldLabel: 'На контроле:'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsEXECUTE',
-			                fieldLabel: 'Список исполнителей:'
-			            },{
-			                xtype: 'textfield',
-			                id:'poles3',
-			                fieldLabel: 'Копия передана в отделы:'
-			            },{
-			                xtype: 'textfield',
-			                id:'jsFILE_ID',
-			                fieldLabel: 'Файл:'
-			            },{
-			        		xtype:'button',
-			        		id:'frmAdd-btnADD',
-			        		text: 'Редактировать',
-			        		handler: function(key, value) {
-										var form = this.up('form').getForm(),
-										s = '';
-										if (form.isValid()) {
-										    Ext.iterate(form.getValues(), function(key, value) {
-										        s += Ext.util.Format.format("{0} = {1}<br />", key, value);
-										}, this);										
-										Ext.Msg.alert('Значение: ', s);
-										}
-			        				}
-			        	}			            
-			          ]
-			        })     
-			    ]
-			 });		 
-///
-////////////////////////////////////////////////////////////////////////////////////////
-	 
-	
-////////////////////////////////////////////////////////////////////////////////////////
-/// окно winReport
-////////////////////////////////////////////////////////////////////////////////////////		
-var winReport = new Ext.Window({
-			    title: "Report",
-			    modal: true,       // отоображает окно модально  (ShowModal)
-			    constrain: true,   // запрет выхода за экран Даже частью блока
-			    border: true,      //vv
-				loadMask : true,  //vv
-			    width: 700,
-			    height: 800,
-			    layout:'fit',
-			    closable: false,  // Крестик для закрытия окна
-			    items: [
-			        new Ext.form.FormPanel({       
-			            frame: true,
-			            
-			            items: [  
-						{
-							xtype:'button',
-							id:'frmAdd-btnAbort',
-							text: 'Отмена',
-								handler: function() {winReport.hide();}
-						},
-			            { // HTML Content in windows
-						xtype: 'box',
-						width: '100%',
-				        height: '100%',
-						autoEl: {
-								tag: 'iframe',
-								src: <%									
-										//URL = "'Report.jsp?SessionUser=" + SessionUser+"'";
-										out.print("''");
-									    %>									 
-								}
-						}
-			          ]
-			        })     
-			    ]
-			 });		 
-	///
-	
-	
-////////////////////////////////////////////////////////////////////////////////////////
-/// окно winReport
-////////////////////////////////////////////////////////////////////////////////////////		
-var winSuggestion = new Ext.Window({
-			    title: "Предложения",
-			    modal: true,       // отоображает окно модально  (ShowModal)
-			    constrain: true,   // запрет выхода за экран Даже частью блока
-			    border: true,      //vv
-				loadMask : true,  //vv
-			    width: 700,
-			    height: 800,
-			    layout:'fit',
-			    closable: false,  // Крестик для закрытия окна
-			    items: [
-			        new Ext.form.FormPanel({       
-			            frame: true,
-			            
-			            items: [  
-						{
-							xtype:'button',
-							id:'frmAdd-btnAbort',
-							text: 'Отмена',
-								handler: function() {winSuggestion.hide();}
-						},{ 
-						// HTML Content in windows
-						xtype: 'box',
-						width: '100%',
-				        height: '100%',
-						autoEl: {
-								tag: 'iframe',
-								src: <%									
-									//	URL = "'Notes.jsp'";
-										out.print("''");
-									    %>									 
-								}
-						}
-			          ]
-			        })     
-			    ]
-			 });	
-	
-	////////////////////////////////////////////////////////////////////////////////////////	 
-	///  окно которое никогда не выйдет за границы экрана
-	 /*constrainedWin = Ext.create('Ext.Window', {
-            title: 'Constrained Window',
-            width: 100,
-            height: 100,
-            x: 20,
-            y: 20,
-            constrain: true,
-            layout: 'fit',
-            items: {
-                border: false
-            }
-            }).show()
-	*/	 
+		
+		
 
-	
-	
-	
-	
-	
-	
-	
+		
+		            columns: [{
+		            			xtype: 'templatecolumn',
+		            			tpl: tplGRDcellBTN,
+		  	                    renderer : columnWrap
+			  	                    /*renderer: function(value, meta) { 
+				  	                    if (value === '25') { 
+				  	                        meta.tdCls = 'male-cell'; 
+				  	                        return a+'<img src="design/images/document-icon32.png">Male'; 
+				  	                    } 						  	     
+				  	                    meta.tdCls = 'female-cell'; 
+				  	                    return a+'<img src="design/images/folder-contract-icon.png">Female'; 
+				  	              }*/
+		            		},
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'I',
+		  	                    text: 'номер<br>(ID_DOG)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'ID_DOG',
+		  	                    text: 'Идентификатор<br>(ID_DOG)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'KONTROL',
+		  	                    text: '<br>(KONTROL)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'ID_COUNT',
+		  	                    text: '<br>(ID_COUNT)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'ID_ACCOUNT',
+		  	                    text: '<br>ID_ACCOUNT'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'NAMEDOG',
+		  	                    text: '<br>(NAMEDOG)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'NOM_DOG',
+		  	                    text: '<br>(NOM_DOG)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'DATA_W',
+		  	                    text: '<br>(DATA_W)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'SROK_PLAT',
+		  	                    text: '<br>(SROK_PLAT)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'SUMMA',
+		  	                    text: '<br>(SUMMA)',		  	                     
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'CURRENCY',
+		  	                    text: '<br>(CURRENCY)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'NOTE',
+		  	                    text: '<br>(NOTE)',
+		  	                    renderer : columnWrap
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'IS_DEL',
+		  	                    text: '<br>(IS_DEL)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'USER_FIO',
+		  	                    text: '<br>(USER_FIO)',
+		  	                    renderer : columnWrap
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'STATUS',
+		  	                    text: '<br>(STATUS)',
+		  	                    renderer : columnWrap
+		  	                 
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'FULLNAMEDOG',
+		  	                    text: '<br>(FULLNAMEDOG)',
+		  	                    renderer : columnWrap
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'PRIM',
+		  	                    text: '<br>(PRIM)',
+		  	                    renderer : columnWrap
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'USL_POST',
+		  	                    text: '<br>(USL_POST)',
+		  	                    renderer : columnWrap
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'DATE_STATUS',
+		  	                    text: '<br>(DATE_STATUS)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'REG_NOM',
+		  	                    text: '<br>(REG_NOM)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'REG_DATE',
+		  	                    text: '<br>(REG_DATE)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'REG_SECT',
+		  	                    text: '<br>(REG_SECT)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'REG_INDEX',
+		  	                    text: '<br>(REG_INDEX)'
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'FULL_NUM',
+		  	                    text: '<br>(FULL_NUM)',
+		  	                    renderer : columnWrap
+		  	                },
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    dataIndex: 'USER_FIO1',
+		  	                    text: '<br>(USER_FIO1)',
+		  	                    renderer : columnWrap
+		  	                }
+		  	                /*,
+		  	                {
+		  	                    xtype: 'gridcolumn',
+		  	                    sortable: false,
+		  	                    text: 'Сроки',
+		  	                    columns: [
+		  	                        {
+		  	                            xtype: 'datecolumn',
+		  	                            dataIndex: 'DATE_REG',
+		  	                            text: 'Дата регистрации<br>(DATE_REG)',
+		  	                            format: 'd.m.Y'
+		  	                        },
+		  	                        {
+		  	                            xtype: 'datecolumn',
+		  	                            dataIndex: 'DEADLINE',
+		  	                            text: 'Срок исполнения<br>(DEADLINE)',
+		  	                            format: 'd.m.Y'
+		  	                        }
+		  	                    ]
+		  	                }
+		  	                */
+		  	            ],
+        
+        
+		  	          tools: [
+			                    {
+			                        xtype: 'tool',
+			                        handler: function(event, toolEl, owner, tool) {
+			                            var params = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+			                            window.open("http://ya.ru/", "Yandex", params);
 
-	
-	
-	
-	
-	
-		}); 
+			                        },
+			                        rtl: false,
+			                        tooltip: 'Справка',
+			                        type: 'help'
+			                    },
+			                    {
+			                        xtype: 'tool',
+			                        type: 'up'
+			                    }
+			                ],
+        
+        
+        
+        
+			                
+			                
+		/*	                
+   		viewConfig : {
+   			loadMask : false,
+   			trackOver : false,
+   			stripeRows : true,
+   			enableTextSelection : true,
+   			
+   			getRowClass : function(record) {
+   				var typeRow = 'typeRow';
+   				switch (record.get('ID_DOG')) {
+   				case 'Да':
+   					typeRow = 'control-card';
+   					break;
+   				case 'Нет':
+   					typeRow = 'linear';
+   					break;
+   				};
+
+   				return typeRow;
+   			 }
+   		},
+			        	    
+			            */    
+			                
+			            /* НА КОНТРОЛЕ */
+			            /*.control-card .x-grid-cell {
+			            	background: #FAFAD2 !important;
+			            }*/
+      
+			            
+	    plugins: [{	    		    	
+            ptype: 'rowexpander',   
+            getRowClass: 'control-card',
+				
+            rowBodyTpl : [                          
+	            <% /// если пользователь имеет доступ то показать ему сумму	                
+	               if  (ACCESS.equals("0")){
+	               		out.println("'<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>'"); 
+	               };
+	            %> ,         
+                '<div style="color: green;"> </div>',
+                '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
+                '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
+            ]
+	    
+        }], 
+        
+        collapsible: true,
+        animCollapse: false,
+
+
+        
+        renderTo: Ext.getBody()
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+}); 
 </script>
 
 

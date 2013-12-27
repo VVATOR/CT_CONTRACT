@@ -21,8 +21,64 @@
 
 
 
+<!--<img class="im" src="design/images/Contract-icon.png" height="16px"> -->
 
 <style type="text/css">
+
+.imgGRD-edit{
+    background: url(design/images/document-icon.png); /* Путь к файлу с исходным рисунком  */
+    display: block; /*  Рисунок как блочный элемент */
+    width: 32px; /* Ширина рисунка */
+    height: 32px; /*  Высота рисунка */
+   }
+   
+.imgGRD-edit:hover{
+/*background-color: red;*/
+background: url(design/images/Contract-icon.png);
+
+}
+
+.imgGRD-add:hover{
+background-color: yellow;
+}
+.imgGRD-new:hover{
+background-color: lime;
+}
+
+
+
+
+
+
+
+.control-card .x-grid-cell {
+	background: red /*#FAFAD2*/ !important;
+}
+
+.male-cell { 
+    background: url(design/images/document-icon32.png) no-repeat 2px 1px !important; 
+    padding-left: 16px; 
+} 
+ 
+.female-cell { 
+    background: url(design/images/folder-contract-icon.png) no-repeat 2px 1px !important; 
+    padding-left: 16px; 
+}
+///////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  .footer_Menu
     {
@@ -65,47 +121,42 @@
 
 
 li.separotor{
-
-background-image: url("design/images/separator.png");
-color: white;
+ background-image: url("design/images/separator.png");
+ color: white;
 
 
 }
 
 li.status-all{
  background-image: url("design/images/contract_status/contract_all.png");
-color: white;
-        background-size: 24px 24px;
+ color: white;
+ background-size: 24px 24px;
 }
 
 li.status-active{
  background-image: url("design/images/contract_status/contract_active.png");
-color: white;
+ color: white;
 }
 
 li.status-warning{
  background-image: url("design/images/contract_status/contract_warning.png");
-color: white;
+ color: white;
 }
 
 li.status-late{
  background-image: url("design/images/contract_status/contract_late.png");
-color: white;
+ color: white;
 }
 
 li.status-ok{
  background-image: url("design/images/contract_status/contract_ok.png");
-color: white;
+ color: white;
 }
+
 </style>
-
-
-
-
 </head>
 <body>
 <div style="width: 100%; height: 30px; background-color: #00ff00;">
-
 Пользователь: (<%=System.getProperty("user.name") %>) /
 Права: <% 
 
