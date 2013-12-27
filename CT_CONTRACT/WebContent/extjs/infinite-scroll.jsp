@@ -161,9 +161,12 @@ Ext.onReady(function() {
 	
 	var 
 	/// tplGRDcellBTN
+		/*
 		tplGRDcellBTN  = '<a class="imgGRD-edit">{STATUS}</a>';
 		tplGRDcellBTN += '<a class="imgGRD-add"><br> add</a><br>';
 		tplGRDcellBTN += '<a class="imgGRD-new"> add</a>';
+		*/
+		tplGRDcellBTN  = '<a href="DataServlet?a={SUMMA}"><img src="design/images/contract_status/warning.png" height="12px" width="12px"></a>';
 		
     var grid1 = Ext.create('Ext.grid.Panel', {
     	Cmp:'gv',  //vv
@@ -342,6 +345,8 @@ Ext.onReady(function() {
 		            columns: [{
 		            			xtype: 'templatecolumn',
 		            			tpl: tplGRDcellBTN,
+		            			width:16,
+		            			//css:' padding:0px; margin:0px;',
 		  	                    renderer : columnWrap
 			  	                    /*renderer: function(value, meta) { 
 				  	                    if (value === '25') { 
@@ -440,7 +445,7 @@ Ext.onReady(function() {
 		  	                {
 		  	                    xtype: 'gridcolumn',
 		  	                    dataIndex: 'PRIM',
-		  	                    text: '<br>(PRIM)',
+		  	                    text: '<br>(PRIM)', 
 		  	                    renderer : columnWrap
 		  	                },
 		  	                {
