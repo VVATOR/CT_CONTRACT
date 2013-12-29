@@ -14,7 +14,8 @@ public class IBRequest{
 	
 	public IBRequest() throws Exception {
 	    // TODO Auto-generated constructor stub
-    	ibC = new IBConnection("IHVOST", "15111987", "bl-databases", "3050", "e:/Ibdata/IRINA", "MTS.GDB", "windows-1251");
+		//ibC = new IBConnection("IHVOST", "15111987", "bl-databases", "3050", "e:/Ibdata/IRINA", "MTS.GDB", "windows-1251");
+		ibC = new IBConnection("SYSDBA", "masterkey", "localhost", "3050", "d:/SERVER/INTERBASE/MTS", "MTS.GDB", "windows-1251");
     	ibC.getConnection();    	
     	stmt = (Statement) ibC.getCon().createStatement();
     }
@@ -57,4 +58,13 @@ public class IBRequest{
 		
 	}*/
 
+
+
+	public void autocomplete_NOM_DOG_IB(String text,String start,String limit) throws SQLException{
+		String sql="SELECT distinct NOM_DOG FROM GET_NUMPP_DOGOVORA where GET_NUMPP_DOGOVORA.i>"+start+" and GET_NUMPP_DOGOVORA.i<=("+start+"+"+limit+") and NOM_DOG like '%"+text+"%'";
+	
+		stmt.setQueryTimeout(iQUERY_TIMEOUT);
+		rs=stmt.executeQuery(sql);
+		System.out.println("autocomplete_NOM_DOG_IB");
+	}
 }

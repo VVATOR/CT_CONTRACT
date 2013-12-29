@@ -2,13 +2,18 @@ package vva.contract.data.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import vva.contract.data.db.interbase.IBRequest;
 
 /**
@@ -31,13 +36,54 @@ public class DataServletIB extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String callback=request.getParameter("callback");
-		String start=request.getParameter("start")!=null?request.getParameter("start"):"1";
-		String limit=request.getParameter("limit")!=null?request.getParameter("limit"):"100";
-		String autoComplete=request.getParameter("autoComplete");
-		
 		response.setCharacterEncoding("windows-1251");
 		response.setHeader("Content-Type", "application/json");
+		
+	String autoComplete="";
+	String textAutocomplete="";
+	if(request.getParameter("query")!=null){
+		textAutocomplete=new String(request.getParameter("query").getBytes("ISO-8859-1"));
+		textAutocomplete=URLDecoder.decode(textAutocomplete,"windows-1251");
+		System.out.println("query:+++++++++++"+textAutocomplete);
+	}
+	
+	
+	String callback=request.getParameter("callback");
+	String start=request.getParameter("start")!=null?request.getParameter("start"):"1";
+	String limit=request.getParameter("limit")!=null?request.getParameter("limit"):"100";
+
+
+
+
+if(request.getParameter("autoComplete")!=null){
+	autoComplete=new String(request.getParameter("autoComplete").getBytes("ISO-8859-1"));
+	System.out.println("autoComplete:"+autoComplete);
+	PrintWriter out = response.getWriter();
+	
+	try {
+		IBRequest ibRequest = new IBRequest();
+		ibRequest.autocomplete_NOM_DOG_IB(textAutocomplete,start,limit);
+		
+		JSONArray arrayObj = new JSONArray();
+		while (ibRequest.rs.next()){			
+			JSONObject jon = new JSONObject();				
+			jon.put("NOM_DOG", ibRequest.rs.getString("NOM_DOG"));
+			arrayObj.put(jon);
+		}		
+		JSONObject sendJSONObj = new JSONObject();
+		sendJSONObj.put("data", arrayObj);
+		sendJSONObj.put("totalCount", ibRequest.getCountContract_IB());
+		
+		out.println(callback + "(" + sendJSONObj.toString() + ");");
+		out.close();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}else{
+		
+		
 		
 		
 		PrintWriter out = response.getWriter();
@@ -98,12 +144,41 @@ public class DataServletIB extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	String autoComplete="";
+	if(request.getParameter("autoComplete")!=null){
+		autoComplete=new String(request.getParameter("autoComplete").getBytes("ISO-8859-1"));
+		System.out.println("autoComplete:"+autoComplete);
+		
+		Enumeration en = request.getParameterNames();
+        while(en.hasMoreElements()) {
+            // Get the name of the request parameter
+            String name = (String)en.nextElement();
+            System.out.println(name);
+ 
+            // Get the value of the request parameter
+            String value = request.getParameter(name);
+ 
+            // If the request parameter can appear more than once in the query string, get all values
+            String[] values = request.getParameterValues(name);
+ 
+            for (int i=0; i<values.length; i++) {
+            	System.out.println(" " + values[i]);
+            }
+        }
+		
+		
+	}
+	
+		
 	}
 
 }
