@@ -62,12 +62,12 @@ if(request.getParameter("autoComplete")!=null){
 	
 	try {
 		IBRequest ibRequest = new IBRequest();
-		ibRequest.autocomplete_NOM_DOG_IB(textAutocomplete,start,limit);
+		ibRequest.autocomplete_KONTROL_IB(textAutocomplete,start,limit);
 		
 		JSONArray arrayObj = new JSONArray();
 		while (ibRequest.rs.next()){			
 			JSONObject jon = new JSONObject();				
-			jon.put("NOM_DOG", ibRequest.rs.getString("NOM_DOG"));
+			jon.put("KONTROL", ibRequest.rs.getString("KONTROL"));
 			arrayObj.put(jon);
 		}		
 		JSONObject sendJSONObj = new JSONObject();
@@ -90,7 +90,7 @@ if(request.getParameter("autoComplete")!=null){
 		
 		try {
 			IBRequest ibRequest = new IBRequest();
-			ibRequest.getAllContracts_IB(start,limit);
+			ibRequest.getAllContractsWithFilter_IB(start,limit);
 			JSONArray arrayObj = new JSONArray();
 			while (ibRequest.rs.next()){
 				

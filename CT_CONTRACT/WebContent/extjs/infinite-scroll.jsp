@@ -171,28 +171,6 @@ Ext.onReady(function() {
 	
 	
 	
-	Ext.define('model_autocomplete_nom_dog', {
-		extend : 'Ext.data.Model',
-		 proxy: {
-	            type: 'jsonp',
-	            url : 'DataServletIB?autoComplete=nom_dog',
-	            reader: {
-	                type: 'json',
-	                root: 'topics',
-	                totalProperty: 'totalCount'
-	            }
-	        },
-		fields: [		         
-		         'NOM_DOG',		         	         
-			    ],
-		idProperty : 'threadid'
-	});
-	var ds = Ext.create('Ext.data.Store', {
-        pageSize: 10,
-        model: 'model_autocomplete_nom_dog'
-    });
-	
-	
 	var pluginExpanded = true; // для панели пэйджинга
 	
 	var movieTpl = new Ext.XTemplate(
@@ -272,10 +250,10 @@ Ext.onReady(function() {
 						                            items: [
 															{
 															    xtype: 'combo',
-															    store: ds,
+															    store: store,
 															    displayField: 'title*******************',
 															    typeAhead: false,
-															    hideLabel: true,
+															    hideLabel: false,
 															    hideTrigger:true,
 															    anchor: '100%',
 															
@@ -301,37 +279,36 @@ Ext.onReady(function() {
 						                                {
 						                                    xtype: 'button',
 						                                    handler: function(button, event) {
-
-						                                        var form = this.up('form').getForm();
-
-						                                        /* Normally we would submit the form to the server here and handle the response...
-						                                        form.submit({
-						                                        clientValidation: true,
-						                                        url: 'register.php',
-						                                        success: function(form, action) {
-						                                        //...
-						                                    },
-						                                    failure: function(form, action) {
-						                                        //...
-						                                    }
-						                                });
-						                                */
-						                                form.submit({
-						                                    clientValidation: true,
-						                                    url: 'http://localhost:8080/CT_Contracts/Adder?',
-						                                    success: function(form, action) {
-						                                        Ext.Msg.alert('success');
-						                                    },
-						                                    failure: function(form, action) {
-						                                        Ext.Msg.alert('failure');
-						                                    }
-						                                });
-
-
-
-						                                if (form.isValid()) {
-						                                    Ext.Msg.alert('Submitted Values', form.getValues(true));
-						                                }
+																		var form = this.up('form').getForm();
+																			
+																			/* Normally we would submit the form to the server here and handle the response...
+																			form.submit({
+																			clientValidation: true,
+																			url: 'register.php',
+																			success: function(form, action) {
+																			//...
+																			},
+																			failure: function(form, action) {
+																			    //...
+																			}
+																			});
+																			*/
+																		form.submit({
+																		    clientValidation: true,
+																		    url: 'http://localhost:8080/CT_Contracts/Adder?',
+																		    success: function(form, action) {
+																		        Ext.Msg.alert('success');
+																		    },
+																		    failure: function(form, action) {
+																		        Ext.Msg.alert('failure');
+																		    }
+																		});
+																		
+																		
+																		
+																		if (form.isValid()) {
+																		    Ext.Msg.alert('Submitted Values', form.getValues(true));
+																		}
 
 						                                    },
 						                                    formBind: true,
