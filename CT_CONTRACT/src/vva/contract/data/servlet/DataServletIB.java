@@ -37,6 +37,7 @@ public class DataServletIB extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("windows-1251");
+		
 		response.setHeader("Content-Type", "application/json");
 		
 	String autoComplete="";
@@ -54,37 +55,74 @@ public class DataServletIB extends HttpServlet {
 
 
 
-
-if(request.getParameter("autoComplete")!=null){
-	autoComplete=new String(request.getParameter("autoComplete").getBytes("ISO-8859-1"));
-	System.out.println("autoComplete:"+autoComplete);
-	PrintWriter out = response.getWriter();
 	
-	try {
-		IBRequest ibRequest = new IBRequest();
-		ibRequest.autocomplete_KONTROL_IB(textAutocomplete,start,limit);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ôèëüòð
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	String fCustomer="";
+	if(request.getParameter("fCustomer")!=null){
+		System.out.println("sop0  :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"UTF-8"));
+		System.out.println("sop01 :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"windows-1251"));
+		System.out.println("sop1  :"+request.getParameter("fCustomer"));
+		System.out.println("sop2  :"+request.getParameter("fCustomer").getBytes("UTF-8"));
+		System.out.println("sop3  :"+request.getParameter("fCustomer").getBytes("ISO-8859-1"));
+		System.out.println("sop4  :"+request.getParameter("fCustomer").getBytes("windows-1251"));
 		
-		JSONArray arrayObj = new JSONArray();
-		while (ibRequest.rs.next()){			
-			JSONObject jon = new JSONObject();				
-			jon.put("KONTROL", ibRequest.rs.getString("KONTROL"));
-			arrayObj.put(jon);
-		}		
-		JSONObject sendJSONObj = new JSONObject();
-		sendJSONObj.put("data", arrayObj);
-		sendJSONObj.put("totalCount", ibRequest.getCountContract_IB());
+		System.out.println("sop4  :"+"Ýëîðëîðëîð");
+		System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("windows-1251")),"UTF-8"));
+		System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"UTF-8"));
+		System.out.println("sop6  :"+request.getParameter("fCustomer").getBytes("utf-8"));
+		System.out.println("sop7  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));
+		System.out.println("sop8  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));	
 		
-		out.println(callback + "(" + sendJSONObj.toString() + ");");
-		out.close();
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		fCustomer = new String(request.getParameter("fCustomer").getBytes("UTF-8"));
+		fCustomer = URLDecoder.decode(fCustomer,"windows-1251").trim();
+		System.out.println(fCustomer);
 	}
 	
-}else{
+	String fPerformer="";
+	if(request.getParameter("fPerformer")!=null){
+		fPerformer = new String(request.getParameter("fPerformer").getBytes("windows-1251"));
+		fPerformer = URLDecoder.decode(fPerformer,"windows-1251").trim();
+		System.out.println(fPerformer);
+	}
+	
+	String fRightholder="";
+	if(request.getParameter("fRightholder")!=null){
+		fRightholder = new String(request.getParameter("fRightholder").getBytes("ISO-8859-1"));
+		fRightholder = URLDecoder.decode(fRightholder,"windows-1251").trim();
+		System.out.println(fRightholder);
+	}
+
+	System.out.println("000000000000000000000000000000000000000000000000 : "+fCustomer+fPerformer+fRightholder);
+	//System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"UTF-8"));
+	
+System.out.println("=================================================================================================");
+System.out.println("ÏÀÐÀÌÅÒÐÛ");
+System.out.println("=================================================================================================");
 		
+		Enumeration en = request.getParameterNames();
+        while(en.hasMoreElements()) {
+            // Get the name of the request parameter
+            String name = (String)en.nextElement();
+            System.out.println(name);
+ 
+            // Get the value of the request parameter
+            String value = request.getParameter(name);
+ 
+            // If the request parameter can appear more than once in the query string, get all values
+            String[] values = request.getParameterValues(name);
+ 
+            for (int i=0; i<values.length; i++) {
+            	System.out.println(" " + values[i]);
+            }
+        }
 		
-		
+
+System.out.println("=================================================================================================");	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
 		
 		PrintWriter out = response.getWriter();
 		
@@ -143,7 +181,7 @@ if(request.getParameter("autoComplete")!=null){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	
 }
 
 	/**
@@ -152,31 +190,7 @@ if(request.getParameter("autoComplete")!=null){
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	String autoComplete="";
-	if(request.getParameter("autoComplete")!=null){
-		autoComplete=new String(request.getParameter("autoComplete").getBytes("ISO-8859-1"));
-		System.out.println("autoComplete:"+autoComplete);
-		
-		Enumeration en = request.getParameterNames();
-        while(en.hasMoreElements()) {
-            // Get the name of the request parameter
-            String name = (String)en.nextElement();
-            System.out.println(name);
- 
-            // Get the value of the request parameter
-            String value = request.getParameter(name);
- 
-            // If the request parameter can appear more than once in the query string, get all values
-            String[] values = request.getParameterValues(name);
- 
-            for (int i=0; i<values.length; i++) {
-            	System.out.println(" " + values[i]);
-            }
-        }
-		
-		
-	}
+	
 	
 		
 	}

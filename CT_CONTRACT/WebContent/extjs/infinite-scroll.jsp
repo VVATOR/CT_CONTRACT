@@ -180,622 +180,460 @@ Ext.onReady(function() {
 		    '</div></tpl>'
 		);
 	
-	var a='{THEME}';
+
 	
 	var tplGRDcellBTN = '<a href="DataServlet?a={SUMMA}"><img src="design/images/contract_status/warning.png" height="12px" width="12px"></a>';
 
 		
+	
+	var mody=function setParamStoreInRuntime() { 
+    	store.getProxy().extraParams.fCustomer    = Ext.getCmp("cbfCustomer").getValue(); /// УРА ЭТО СУПЕР  
+    	alert("zz:"+Ext.getCmp("cbfRightholder").getValue());
+    	
+		store.getProxy().extraParams.fPerformer   = Ext.getCmp("cbfPerformer").getValue(); /// УРА ЭТО СУПЕР    
+		store.getProxy().extraParams.fRightholder = Ext.getCmp("cbfRightholder").getValue(); /// УРА ЭТО СУПЕР    
+	     	
+    };
 	 
-		
-	var grid = Ext.create('Ext.grid.Panel', {
-		Cmp:'gv',  //vv
-		cls : 'linear',
-		columnLines : true, // линии колонок и строк
-		bottom: 0,
-		store : store,
-		width : 'auto',
-		height : 500,
-		title : ' ', // Данные
-		
-		
-		
-		///verticalScrollerType : 'paginggridscroller',
-	   /* verticalScroller: {
-            xtype: 'paginggridscroller',
-            activePrefetch: false
-        },*/
-        
-		disableSelection : false,
-		invalidateScrollerOnRefresh : false,
-		
-		
+	var grid = Ext.create('Ext.grid.Panel',
+	        {
+	          //  "xtype": "gridpanel",
+	            "cls": "linear",
+	            "height": 450,
+	            "collapsed": false,
+	            "title": "Договора НИОКТР",
+	            "titleCollapse": false,
+	            "columnLines": true,
+	            "store": store,
+	            "viewConfig": {
+	                "margin": 0
+	            },
+	            
+	            
+	    	    plugins: [{	    	
+	                ptype: 'rowexpander',            
+	                rowBodyTpl : [                          
+	    	            <% /// если пользователь имеет доступ то показать ему сумму	                
+	    	               if  (ACCESS.equals("0")){
+	    	               		out.println("'<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>'"); 
+	    	               };
+	    	            %> ,         
+	                    '<div style="color: green;"> </div>',
+	                    '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
+	                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
+	                    
+	                ]
+	            }], 
+	           
+	            collapsible: true,
+	            collapse: true,
 
-		
-		dockedItems: [  
-						/*{
-						    dock: 'top',
-						    xtype: 'toolbar',
-						    items: [{
-						       
-						        fieldLabel: 'Search',
-						        labelWidth: 50,
-						        xtype: 'searchfield',
-						        store: store
-						    }, '->', {
-						        xtype: 'component',
-						        itemId: 'status',
-						        tpl: 'Matching threads: {count}',
-						        style: 'margin-right:5px'
-						    }]
-						},*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-						{
-						                    xtype: 'toolbar',
-						                    dock: 'left',
-						                    width: 351,
-						                    items: [
-						                			
-						                        {
-						                            xtype: 'form',
-						                            width: 210,
-						                            bodyPadding: 10,
-						                            headerPosition: 'left',
-						                            title: 'добавь',
-						                            titleCollapse: false,
-						                            jsonSubmit: false,
-						                            method: 'POST',
-						                            standardSubmit: true,
-						                            url: 'http://localhost:8080/CT_CONTRACT_ib/DataServletIB?SessionUser=vikhlaev',
-						                            items: [
-															{
-															    xtype: 'combo',
-															    store: store,
-															    displayField: 'title*******************',
-															    typeAhead: false,
-															    hideLabel: false,
-															    hideTrigger:true,
-															    anchor: '100%',
-															
-															    listConfig: {
-															        loadingText: 'Searching...',
-															        emptyText: 'No matching posts found.',
-															
-															        // Custom rendering template for each item
-															        getInnerTpl: function() {
-															            return '<a class="search-item" href="http://www.sencha.com/forum/showthread.php?t={topicId}&p={id}">' +
-															                '<h3><span>{[Ext.Date.format(values.lastPost, "M j, Y")]}<br />by {author}</span>{title}</h3>' +
-															                '{excerpt}' +
-															            '</a>';
-															        }
-															    },
-															    pageSize: 10
-															},	
-																		
-															    
-															    
-															    
-															    ///////////////////////////////////
-						                                {
-						                                    xtype: 'button',
-						                                    handler: function(button, event) {
-																		var form = this.up('form').getForm();
-																			
-																			/* Normally we would submit the form to the server here and handle the response...
-																			form.submit({
-																			clientValidation: true,
-																			url: 'register.php',
-																			success: function(form, action) {
-																			//...
-																			},
-																			failure: function(form, action) {
-																			    //...
-																			}
-																			});
-																			*/
-																		form.submit({
-																		    clientValidation: true,
-																		    url: 'http://localhost:8080/CT_Contracts/Adder?',
-																		    success: function(form, action) {
-																		        Ext.Msg.alert('success');
-																		    },
-																		    failure: function(form, action) {
-																		        Ext.Msg.alert('failure');
-																		    }
-																		});
-																		
-																		
-																		
-																		if (form.isValid()) {
-																		    Ext.Msg.alert('Submitted Values', form.getValues(true));
-																		}
-
-						                                    },
-						                                    formBind: true,
-						                                    disabled: true,
-						                                    text: 'MyButton'
-						                                },
-						                                {
-						                                    xtype: 'combobox',
-						                                    frame: false,
-						                                    id: 'A3',
-						                                    width: 150,
-						                                    fieldLabel: 'Тема',
-						                                    labelAlign: 'top',
-						                                    name: 'the',
-						                                    displayField: 'I',
-						                                    enableRegEx: true,
-						                                    pageSize: 10,
-						                                    store: store1,
-						                                    typeAhead: true
-						                                },
-						                                {
-						                                    xtype: 'combobox',
-						                                    width: 150,
-						                                    fieldLabel: 'Правообладатель',
-						                                    labelAlign: 'top',
-						                                    name: 'pra',
-						                                    displayField: 'NAMEDOG',
-						                                    enableRegEx: true,
-						                                    pageSize: 10,
-						                                    store: store1,
-						                                    typeAhead: true
-						                                },
-						                                {
-						                                    xtype: 'combobox',
-						                                    fieldLabel: 'Исполнитель<br>(соисполнитель)',
-						                                    labelAlign: 'top',
-						                                    name: 'isp',
-						                                    enableRegEx: true,
-						                                    pageSize: 10,
-						                                    store: store1,
-						                                    typeAhead: true
-						                                },
-						                                {
-						                                    xtype: 'combobox',
-						                                    id: 'search',
-						                                    fieldLabel: 'Заказчик',
-						                                    labelAlign: 'top',
-						                                    name: 'zak',
-						                                    hideTrigger: true,
-						                                    enableRegEx: true,
-						                                    forceSelection: true,
-						                                    pageSize: 10,
-						                                    queryMode: 'local',
-						                                    store: store1,
-						                                    typeAhead: true
-						                                }
-						                            ]
-						                        }
-						                    ]
-						                },
-						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-							{
-		                    xtype: 'pagingtoolbar', 
-		                    store: 'store',
-		                    dock: 'bottom',
-		                    rtl: false,
-		                    afterPageText: ' из {0}',
-		                    beforePageText: 'Страница',
-		                    displayInfo: true,
-		                    displayMsg: 'Записи с {0} по {1}  <b><u>Всего: {2}</u></b>',
-		                    emptyMsg: 'Нет данных для отображения',
-		                    firstText: 'В начало',
-		                    lastText: 'В конец',
-		                    nextText: 'Вперед на 200 записей',
-		                    prevText: 'назад на 200 записей',
-		                    refreshText: 'Обновить',
-		                   
-		                    items:[
-									new Ext.form.field.ComboBox({									   
-										 xtype: 'timefield',
-									        name: 'out',
-									     renderer: function() 
-											      {
-											         return 'lol';
-											      } 
-								   })
-								   ,
-		                           '-', {
-		                               text: 'Добавить',
-		                               enableToggle: true,
-		                               handler: function(){winADD.show();}
-		                              },
-		                           '-', {
-		                              text: 'Редактирование',
-		                              enableToggle: true,
-		                              handler: function(){winEDIT.show();}
-		                             },
-		                           '-', {
-		                            	 text: 'Предложения',
-		                            	 handler: function(){winSuggestion.show();}
-		                             },{
-		     							xtype:'button',
-		    							id:'frmAdd-btnAdd',
-		    							text: 'Add',
-		    								handler: function() {window.location='add.jsp';}
-		    						}
-		                         ]
-		                },
-		                {
-		                    xtype: 'toolbar', 
-		                    height: 48,
-		                    dock: 'top',
-		                    rtl: false,
-		                    afterPageText: ' из {0}',
-		                    beforePageText: 'Страница',
-		                    displayInfo: true,
-		                    displayMsg: 'Записи с {0} по {1}  <b><u>Всего: {2}</u></b>',
-		                    emptyMsg: 'Нет данных для отображения',
-		                    firstText: 'В начало',
-		                    lastText: 'В конец',
-		                    nextText: 'Вперед на 200 записей',
-		                    prevText: 'назад на 200 записей',
-		                    refreshText: 'Обновить',
-		                    items:[
-									{
-										xtype: 'button',
-										scale   : 'large',
-										text: '',
-										height: 42,
-										width: 42,
-
-										iconCls: 'icon-email32',
-										handler: function(){
-															document.forms.Main.reset(); 
-															//window.open("index.jsp?TYPESORTING=i");
-															window.open("index.jsp?TYPESORTING=i");
-															// allSort('i');
-															}
-									//Notes.jsp"
-									},
-									{
-										xtype: 'button',
-										scale   : 'large',
-										text: '',
-										height: 42,
-										width: 42,
-
-										iconCls: 'icon-mail',
-										handler: function(){ 
-															document.forms.Main.reset(); 
-															window.open("index.jsp?TYPESORTING=all");
-															// allSort('all');
-															}
-										//Notes.jsp"
-									},{
-										xtype: 'button',
-										height: 32,
-										width: 32,
-										text: '',
-										iconCls: 'icon-email32',
-										handler: function(){ window.open("ya.ru");}
-									//Notes.jsp"
-									},{
-										xtype: 'button',
-										height: 32,
-										width: 32,
-										text: '',
-										iconCls: 'icon-email32',
-										handler: function(){ window.open("Notes.jsp");}
-									},
-									{
-				                    text: 'Отчеты',
-				                    iconCls: 'icon-print',
-				                    menu: {
-				                        xtype: 'menu',
-				                        minWidth: 150,
-				                        width: 150,
-				                        items: [ 
-				                                
-				                           /*  {	
-				                            	 xtype: 'button',
-				                            	 text: 'button',			                            
-				                            	 handler : function(){
-				         			            	Ext.ux.grid.Printer.printAutomatically = false;
-				         			            	Ext.ux.grid.Printer.print(grid);	
-				                            	 }
-				                             },   */
-				                             {				
-											  xtype: 'menuitem',	
-											  text: 'Печать',
-											  icon: 'images/printer.png',
-											  handler: function(){winReport.show();}		
-															
-								            },																								
-				                            {
-				                                xtype: 'menuitem',
-				                                text: 'Отчет по тематикам'
-				                            },
-				                            {
-				                                xtype: 'menuitem',
-				                               // icon: 'icon-menu-excel',
-				                               icon: 'images/excel.png',
-				                               text: 'В Excell'
-				                            },
-				                            {
-				                                xtype: 'menuitem',
-				                                text: 'В PDF'
-				                            }
-				                        ]
-				                    }
-								}
-		                         ]
-		                }
-		            ],
-       
-		        
-		            
-		// grid columns
-		/*columns : [ {
-			xtype : 'rownumberer',
-			// flex: 1,
-			width : 40,
-			header : '№ п/п'
-		// ,renderer : renderTopic
-		}, {
-			header : "id",
-			dataIndex : 'id',
-
-			width : 40,
-
-			hidden : false, // скрыть при старте
-			hideable : true, // возможность скрывать/показывать колонку
-
-			sortable : true
-		// разрешить сортировку
-
-		}],*/
-columns: [		            
-		            {	xtype: 'templatecolumn',
-			            tpl: tplGRDcellBTN,
-            			width:16,
-            			//css:' padding:0px; margin:0px;',
-  	                    renderer : columnWrap
-	  	                    /*renderer: function(value, meta) { 
-		  	                    if (value === '25') { 
-		  	                        meta.tdCls = 'male-cell'; 
-		  	                        return a+'<img src="design/images/document-icon32.png">Male'; 
-		  	                    } 						  	     
-		  	                    meta.tdCls = 'female-cell'; 
-		  	                    return a+'<img src="design/images/folder-contract-icon.png">Female'; 
-		  	              }*/
-            		},
+	            
+	            
+	            "columns": [
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'I',
-	                    text: 'номер<br>(ID_DOG)'
+	                    "xtype": "gridcolumn",
+	                    "width": 45,
+	                    "dataIndex": "I",
+	                    "text": "I"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_DOG',
-	                    text: 'Идентификатор<br>(ID_DOG)'
+	                    "xtype": "templatecolumn",
+	                    "tpl": [
+	                        "<a href=\"DataServlet?a={SUMMA}\"><img src=\"design/images/contract_status/warning.png\" height=\"12px\" width=\"12px\"></a>"
+	                    ],
+	                    "width": 35,
+	                    "text": ""
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'KONTROL',
-	                    text: '<br>(KONTROL)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "ID_DOG",
+	                    "text": "ID_DOG"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_COUNT',
-	                    text: '<br>(ID_COUNT)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "KONTROL",
+	                    "text": "KONTROL"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'ID_ACCOUNT',
-	                    text: '<br>ID_ACCOUNT'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "ID_COUNT",
+	                    "text": "ID_COUNT"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NAMEDOG',
-	                    text: '<br>(NAMEDOG)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "ID_ACCOUNT",
+	                    "text": "ID_ACCOUNT"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NOM_DOG',
-	                    text: '<br>(NOM_DOG)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "NAMEDOG",
+	                    "text": "NAMEDOG"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'DATA_W',
-	                    text: '<br>(DATA_W)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "NOM_DOG",
+	                    "text": "NOM_DOG"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'SROK_PLAT',
-	                    text: '<br>(SROK_PLAT)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "DATA_W",
+	                    "text": "DATA_W"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'SUMMA',
-	                    text: '<br>(SUMMA)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "SROK_PLAT",
+	                    "text": "SROK_PLAT"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'CURRENCY',
-	                    text: '<br>(CURRENCY)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "SUMMA",
+	                    "text": "SUMMA"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'NOTE',
-	                    text: '<br>(NOTE)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "CURRENCY",
+	                    "text": "CURRENCY"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'IS_DEL',
-	                    text: '<br>(IS_DEL)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "NOTE",
+	                    "renderer": "columnWrap",
+	                    "text": "NOTE"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USER_FIO',
-	                    text: '<br>(USER_FIO)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "IS_DEL",
+	                    "text": "IS_DEL"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'STATUS',
-	                    text: '<br>(STATUS)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "USER_FIO",
+	                    "text": "USER_FIO"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'FULLNAMEDOG',
-	                    text: '<br>(FULLNAMEDOG)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "STATUS",
+	                    "text": "STATUS"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'PRIM',
-	                    text: '<br>(PRIM)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "FULLNAMEDOG",
+	                    "text": "FULLNAMEDOG"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USL_POST',
-	                    text: '<br>(USL_POST)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "PRIM",
+	                    "text": "PRIM"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'DATE_STATUS',
-	                    text: '<br>(DATE_STATUS)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "USL_POST",
+	                    "text": "USL_POST"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_NOM',
-	                    text: '<br>(REG_NOM)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "DATE_STATUS",
+	                    "text": "DATE_STATUS"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_DATE',
-	                    text: '<br>(REG_DATE)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "REG_NOM",
+	                    "text": "REG_NOM"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_SECT',
-	                    text: '<br>(REG_SECT)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "REG_DATE",
+	                    "text": "REG_DATE"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'REG_INDEX',
-	                    text: '<br>(REG_INDEX)'
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "REG_SECT",
+	                    "text": "REG_SECT"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'FULL_NUM',
-	                    text: '<br>(FULL_NUM)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "REG_INDEX",
+	                    "text": "REG_INDEX"
 	                },
 	                {
-	                    xtype: 'gridcolumn',
-	                    dataIndex: 'USER_FIO1',
-	                    text: '<br>(USER_FIO1)',
-	                    renderer : columnWrap
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "FULL_NUM",
+	                    "text": "FULL_NUM"
+	                },
+	                {
+	                    "xtype": "gridcolumn",
+	                    "dataIndex": "USER_FIO1",
+	                    "text": "USER_FIO1"
 	                }
-	                /*,
+	            ],
+	            "dockedItems": [
 	                {
-	                    xtype: 'gridcolumn',
-	                    sortable: false,
-	                    text: 'Сроки',
-	                    columns: [
+	                    "xtype": "pagingtoolbar",
+	                    "dock": "bottom",
+	                   // "width": 360,
+	                    "afterPageText": "из {0}",
+	                    "beforePageText": "Страница",
+	                    "displayInfo": true,
+	                    "displayMsg": "Записи с {0} по {1}  <b><u>Всего: {2}</u></b>",
+	                    "emptyMsg": "Нет данных для отображения",
+	                    "firstText": "В начало",
+	                    "lastText": "В конец",
+	                    "nextText": "Вперед",
+	                    "prevText": "Назад",
+	                    "refreshText": "Обновить",
+	                    "store": store,
+	                    "items": [
 	                        {
-	                            xtype: 'datecolumn',
-	                            dataIndex: 'DATE_REG',
-	                            text: 'Дата регистрации<br>(DATE_REG)',
-	                            format: 'd.m.Y'
+	                            "xtype": "tbseparator"
 	                        },
 	                        {
-	                            xtype: 'datecolumn',
-	                            dataIndex: 'DEADLINE',
-	                            text: 'Срок исполнения<br>(DEADLINE)',
-	                            format: 'd.m.Y'
+	                            "xtype": "button",
+	                            "text": "Добавить"
+	                        }
+	                    ]
+	                },
+	                {
+	                    "xtype": "toolbar",
+	                    "dock": "left",
+	                    "items": [
+	                        {
+	                            "xtype": "buttongroup",
+	                            "height": 290,
+	                            "title": "Buttons",
+	                            "columns": 1,
+	                            "items": [
+	                                {
+	                                    "xtype": "combobox",
+	                                    "id": "cbfCustomer",
+	                                    "width": 250,
+	                                    "fieldLabel": "Заказчик",
+	                                    "labelAlign": "top",
+	                                    "name": "find",
+	                                    "displayField": "KONTROL",
+	                                    "pageSize": 15,
+	                                    "store": store,
+	                                    "valueField": "KONTROL",
+	                                    "listeners": {
+                                            change:  mody
+                                    	} 
+	                                },
+	                                {
+	                                    "xtype": "combobox",
+	                                    "id": "cbfPerformer",
+	                                    "width": 250,
+	                                    "fieldLabel": "Исполнитель",
+	                                    "labelAlign": "top",
+	                                    "displayField": "NAMEDOG",
+	                                    "pageSize": 15,
+	                                    "store": store,
+	                                    "valueField": "NAMEDOG",
+	                                    "listeners": {
+                                            change:  mody
+                                    	} 
+	                                },
+	                                {
+	                                    "xtype": "combobox",
+	                                    "id": 'cbfRightholder',
+	                                    "width": 250,
+	                                    
+	                                    "fieldLabel": "Правообладатель",
+	                                    "labelAlign": "top",
+	                                    "displayField": "FULLNAMEDOG",
+	                                    "pageSize": 15,
+	                                    "store": store,
+	                                    "valueField": "FULLNAMEDOG",
+                                        "listeners": {
+                                            change:  mody
+                                    	}                                           
+	                                },
+	                                {
+	                                    "xtype": "button",
+	                                    "handler": function(button, event) {
+	                                        var searchValue = Ext.getCmp("cbf1").getValue();//get new value 
+	                                     //   store.load().filter('jsonGridFielName', searchValue); //load filtered data
+	                                        
+	                                    	store.load().filter('jsonGridFielName', Ext.getCmp("cbf1").getValue()); //load filtered data
+	                                    	
+	                                    	
+
+	                                    	store.getProxy().extraParams.fCustomer    = Ext.getCmp("cbf1").getValue();/// УРА ЭТО СУПЕР
+	                                    	store.getProxy().extraParams.fPerformer   = Ext.getCmp("cbf1").getValue();/// УРА ЭТО СУПЕР
+	                                    	store.getProxy().extraParams.fRightholder = Ext.getCmp("cbf1").getValue();/// УРА ЭТО СУПЕР
+	                                    	
+	                                    	store.getProxy().extraParams.fDateReg_interval1 = Ext.getCmp("cbf1").getValue();/// УРА ЭТО СУПЕР
+	                                    	store.getProxy().extraParams.fDateReg_interval2 = Ext.getCmp("cbf1").getValue();/// УРА ЭТО СУПЕР
+	                                    	
+	                                    	
+	                                    	
+	                                        store.load({
+	                                            params:{
+	                                                fCustomer: Ext.getCmp("cbf1").getValue(),
+	                                                fPerformer: Ext.getCmp("cbf1").getValue(),
+	                                                fRightholder: Ext.getCmp("cbf1").getValue()
+	                                            }
+	                                            //other options like a callback function, append/add flag, etc. 
+	                                        });
+	                                    },
+	                                    "text": "filter"
+	                                },
+	                                {
+	                                    "xtype": "button",
+	                                    "text": "Button 2"
+	                                },
+	                                {
+	                                    "xtype": "button",
+	                                    "handler": function(button, event) {
+	                                        var form = this.up('form').getForm();
+
+	                                        /* Normally we would submit the form to the server here and handle the response...
+	                                        form.submit({
+	                                        clientValidation: true,
+	                                        url: 'register.php',
+	                                        success: function(form, action) {
+	                                        //...
+	                                    },
+	                                    failure: function(form, action) {
+	                                        //...
+	                                    }
+	                                });
+	                                */
+
+	                                form.submit({
+	                                    clientValidation: true,
+	                                    url: 'http://localhost:8080/CT_Contracts/Adder?',
+	                                    success: function(form, action) {
+	                                        //   Ext.Msg.alert('success');
+	                                    },
+	                                    failure: function(form, action) {
+	                                        //  Ext.Msg.alert('failure');
+	                                    }
+	                                });
+
+
+
+	                                if (form.isValid()) {
+	                                    Ext.Msg.alert('Submitted Values', form.getValues(true));
+	                                }
+	                                    },
+	                                    "text": "ПОИСК"
+	                                }
+	                            ]
+	                        }
+	                    ]
+	                },
+	                {
+	                    "xtype": "toolbar",
+	                    "dock": "top",
+	                    "items": [
+	                        {
+	                            "xtype": "button",
+	                            "height": 42,
+	                            "width": 42,
+	                            "iconCls": "icon-email32",
+	                            "scale": "large",
+	                            "text": ""
+	                        },
+	                        {
+	                            "xtype": "button",
+	                            "height": 42,
+	                            "width": 42,
+	                            "iconCls": "icon-mail",
+	                            "scale": "large",
+	                            "text": ""
+	                        },
+	                        {
+	                            "xtype": "button",
+	                            "iconCls": "icon-print",
+	                            "text": "Отчеты",
+	                            "menu": {
+	                                "xtype": "menu",
+	                                "minWidth": 150,
+	                                "width": 150,
+	                                "items": [
+	                                    {
+	                                        "xtype": "menuitem",
+	                                        "icon": "images/printer.png",
+	                                        "text": "Печать"
+	                                    },
+	                                    {
+	                                        "xtype": "menuitem",
+	                                        "text": "Отчет по тематикам"
+	                                    },
+	                                    {
+	                                        "xtype": "menuitem",
+	                                        "icon": "images/excel.png",
+	                                        "text": "В Excell"
+	                                    }
+	                                ]
+	                            }
 	                        }
 	                    ]
 	                }
-	                */
 	            ],
-	            tools: [
-	                    {
-	                        xtype: 'tool',
-	                        handler: function(event, toolEl, owner, tool) {
-	                            var params = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
-	                            window.open("http://ya.ru/", "Yandex", params)
+	            "tools": [
+	                {
+	                    "xtype": "tool",
+	                    "tooltip": "Справка",
+	                    "type": "help"
+	                }
+	            ]
+	            
+	            
+	            
+	        });
+		
+	var form = Ext.create('Ext.form.Panel',
+		{
+		    "xtype": "form",
+		    "height": 500,
+		    "width": 1200,
+		    "bodyPadding": 10,
+		    "title": "форма",
+		    "titleCollapse": false,
+		    "jsonSubmit": true,
+		    "method": "POST",
+		    "standardSubmit": true,
+		    "url": "http://localhost:8080/CT_CONTRACT_ib/DataServletIB",
+		    "items": [ grid ],
+		    renderTo : 'content'// ,Ext.getBody(), //
+		});
+		
+		    
+		    
+		   
 
-	                        },
-	                        rtl: false,
-	                        tooltip: 'Справка',
-	                        type: 'help'
-	                    },
-	                    {
-	                        xtype: 'tool',
-	                        type: 'up'
-	                    }
-	                ],
-		
-	                
-	                
-	                
-	      /*          
-	      viewConfig : {
-			loadMask : false,
-			trackOver : false,
-			stripeRows : true,
-			enableTextSelection : true,
-			
-			getRowClass : function(record) {
-				var typeRow = 'typeRow';
-				switch (record.get('ID_DOG')) {
-				case 'Да':
-					typeRow = 'control-card';
-					break;
-				case 'Нет':
-					typeRow = 'linear';
-					break;
-				}
-				;
+		    
+		    
+		    
 
-				return typeRow;
-			}
-		},
+		    
+		    
 		
 		
-		*/
-		  
-	    plugins: [{	    	
-            ptype: 'rowexpander',            
-            rowBodyTpl : [                          
-	            <% /// если пользователь имеет доступ то показать ему сумму	                
-	               if  (ACCESS.equals("0")){
-	               		out.println("'<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>'"); 
-	               };
-	            %> ,         
-                '<div style="color: green;"> </div>',
-                '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-                '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
-                a
-            ]
-        }], 
-       
-        collapsible: true,
-        collapse: true,
 
-
-		
-		
-		renderTo : 'content'// ,Ext.getBody(), //
-	});
     
     
     
+    /*
+    
+	 var searchValue = Ext.getCmp("ehu").getValue();//get new value 
+	    store.load().filter('jsonGridFielName', searchValue); //load filtered data
+    */
     
     
     
+	
     
+    
+    
+  
+   
     
 }); 
+
+
+
 </script>
 
 

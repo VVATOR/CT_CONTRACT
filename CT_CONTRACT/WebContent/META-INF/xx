@@ -1,0 +1,10 @@
+function setParamStoreInRuntime() { 
+	store.getProxy().extraParams.fKONTROL     = Ext.getCmp("cbfKONTROL").getValue();     /// спю щрн ясоеп    
+	store.getProxy().extraParams.fCustomer    = Ext.getCmp("cbfCustomer").getValue(); /// спю щрн ясоеп    
+	store.getProxy().extraParams.fPerformer   = Ext.getCmp("cbfPerformer").getValue(); /// спю щрн ясоеп    
+	store.getProxy().extraParams.fRightholder = Ext.getCmp("cbfRightholder").getValue(); /// спю щрн ясоеп    
+
+	
+	  
+}
+
