@@ -36,10 +36,13 @@ public class DataServletIB extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setCharacterEncoding("windows-1251");
+		System.out.println("Encoding: " + response.getCharacterEncoding());
 		
-		response.setHeader("Content-Type", "application/json");
+		//response.setCharacterEncoding("windows-1251");
+		 response.setContentType("text/html;charset=Windows-1251");
 		
+		//response.setHeader("Content-Type", "application/json");
+		System.out.println("Encoding: " + response.getCharacterEncoding());
 	String autoComplete="";
 	String textAutocomplete="";
 	if(request.getParameter("query")!=null){
@@ -59,25 +62,48 @@ public class DataServletIB extends HttpServlet {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // фильтр
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	String fCustomer="";
+	System.out.println("Encoding: " + response.getCharacterEncoding());
+	System.out.println("АБВ\u0410\u0411\u0412");
+		String fCustomer="";
 	if(request.getParameter("fCustomer")!=null){
+		System.out.println(new String( request.getParameter("fCustomer").getBytes("ISO-8859-1"), "Cp1251" ));
+
 		System.out.println("sop0  :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"UTF-8"));
 		System.out.println("sop01 :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"windows-1251"));
-		System.out.println("sop1  :"+request.getParameter("fCustomer"));
-		System.out.println("sop2  :"+request.getParameter("fCustomer").getBytes("UTF-8"));
-		System.out.println("sop3  :"+request.getParameter("fCustomer").getBytes("ISO-8859-1"));
-		System.out.println("sop4  :"+request.getParameter("fCustomer").getBytes("windows-1251"));
+		
+		
+		System.out.println("sop1  :"+ request.getParameter("fCustomer"));
+		System.out.println("sop2  :"+ request.getParameter("fCustomer").getBytes("UTF-8"));
+		System.out.println("sop3  :"+ request.getParameter("fCustomer").getBytes("ISO-8859-1"));
+		System.out.println("sop4  :"+ request.getParameter("fCustomer").getBytes("windows-1251"));
 		
 		System.out.println("sop4  :"+"Элорлорлор");
-		System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("windows-1251")),"UTF-8"));
-		System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"UTF-8"));
-		System.out.println("sop6  :"+request.getParameter("fCustomer").getBytes("utf-8"));
-		System.out.println("sop7  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));
-		System.out.println("sop8  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));	
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("windows-1251")),"UTF-8"));
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"UTF-8"));
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"windows-1251"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")));
+		System.out.println("sop6  :"+ request.getParameter("fCustomer").getBytes("utf-8"));
+		
+		System.out.println("sop7  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer")),"windows-1251"));
+		System.out.println("sop8  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));	
 		
 		fCustomer = new String(request.getParameter("fCustomer").getBytes("UTF-8"));
 		fCustomer = URLDecoder.decode(fCustomer,"windows-1251").trim();
 		System.out.println(fCustomer);
+		
+		
+		
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-5")),"windows-1251"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-5")));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-5"),"KOI8_R"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-5"),"windows-1251"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-1"),"windows-1251"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")).getBytes("Cp1251"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")).getBytes("windows-1251"));
+		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")).getBytes("Cp1251"));
+	//	System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer")).getBytes("ISO-8859-5"),"windows-1251"));
+		
+		//System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859")),"windows-1251"));
 	}
 	
 	String fPerformer="";
