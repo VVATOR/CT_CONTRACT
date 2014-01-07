@@ -2,6 +2,7 @@ package vva.contract.data.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 
@@ -38,10 +39,50 @@ public class DataServletIB extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Encoding: " + response.getCharacterEncoding());
 		
-		//response.setCharacterEncoding("windows-1251");
-		 response.setContentType("text/html;charset=Windows-1251");
+		response.setCharacterEncoding("windows-1251");
+		// response.setContentType("text/html; charset=Windows-1251");
 		
-		//response.setHeader("Content-Type", "application/json");
+		
+		
+		response.setHeader("Content-Type", "application/json");
+		
+		
+		
+		/*
+		 // Кодировка сообщений, использованная engine
+		   // Некоторые используют ISO-8859-1, некоторые кодировку
+		   // по умолчанию - единообразия тут нет
+		   String requestEnc = "ISO-8859-1";
+
+		   // Кодировка, установленная в броузере
+		   String clientEnc = request.getParameter("charset");
+
+		   if( clientEnc==null ) clientEnc="Cp1251";
+
+		   // Получение параметра
+		   String fCustomer = request.getParameter("fCustomer");
+
+		   // 
+		   if( fCustomer!=null )
+			   fCustomer = new String(fCustomer.getBytes(requestEnc),clientEnc);
+		System.out.println("99999: "+fCustomer);
+		*/
+		String fCustomer=new String(request.getParameter("fCustomer").getBytes("ISO-8859-1"),"utf-8");
+		/*String s=fCustomer;
+		System.out.println("sop5  :"+ fCustomer);
+		
+		try{
+		 fCustomer=new String(s.getBytes(),"utf-8");
+		System.out.println("333333333333333333333333333333333333333333333: "+fCustomer);
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		*/
+		
+		
+		
 		System.out.println("Encoding: " + response.getCharacterEncoding());
 	String autoComplete="";
 	String textAutocomplete="";
@@ -64,22 +105,30 @@ public class DataServletIB extends HttpServlet {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	System.out.println("Encoding: " + response.getCharacterEncoding());
 	System.out.println("АБВ\u0410\u0411\u0412");
-		String fCustomer="";
 	if(request.getParameter("fCustomer")!=null){
 		System.out.println(new String( request.getParameter("fCustomer").getBytes("ISO-8859-1"), "Cp1251" ));
 
-		System.out.println("sop0  :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"UTF-8"));
+		System.out.println("sop0  :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"utf-8"));
 		System.out.println("sop01 :"+URLDecoder.decode(new String(request.getParameter("fCustomer")),"windows-1251"));
 		
 		
 		System.out.println("sop1  :"+ request.getParameter("fCustomer"));
-		System.out.println("sop2  :"+ request.getParameter("fCustomer").getBytes("UTF-8"));
+		System.out.println("sop2  :"+ request.getParameter("fCustomer").getBytes("utf-8"));
 		System.out.println("sop3  :"+ request.getParameter("fCustomer").getBytes("ISO-8859-1"));
 		System.out.println("sop4  :"+ request.getParameter("fCustomer").getBytes("windows-1251"));
 		
 		System.out.println("sop4  :"+"Элорлорлор");
-		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("windows-1251")),"UTF-8"));
-		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"UTF-8"));
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));
+	
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("windows-1251")),"utf-8"));
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer")),"utf-8"));
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer")),"windows-1251"));
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer")),"ISO-8859-1"));		
+			
+		
+		
+		
+		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"utf-8"));
 		System.out.println("sop5  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"windows-1251"));
 		System.out.println("sop5  :"+ new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")));
 		System.out.println("sop6  :"+ request.getParameter("fCustomer").getBytes("utf-8"));
@@ -87,7 +136,7 @@ public class DataServletIB extends HttpServlet {
 		System.out.println("sop7  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer")),"windows-1251"));
 		System.out.println("sop8  :"+ URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("utf-8")),"windows-1251"));	
 		
-		fCustomer = new String(request.getParameter("fCustomer").getBytes("UTF-8"));
+		fCustomer = new String(request.getParameter("fCustomer").getBytes("utf-8"));
 		fCustomer = URLDecoder.decode(fCustomer,"windows-1251").trim();
 		System.out.println(fCustomer);
 		
@@ -121,7 +170,7 @@ public class DataServletIB extends HttpServlet {
 	}
 
 	System.out.println("000000000000000000000000000000000000000000000000 : "+fCustomer+fPerformer+fRightholder);
-	//System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"UTF-8"));
+	//System.out.println("sop5  :"+URLDecoder.decode(new String(request.getParameter("fCustomer").getBytes("ISO-8859-1")),"utf-8"));
 	
 System.out.println("=================================================================================================");
 System.out.println("ПАРАМЕТРЫ");
@@ -152,6 +201,7 @@ System.out.println("============================================================
 		
 		PrintWriter out = response.getWriter();
 		
+		
 		try {
 			IBRequest ibRequest = new IBRequest();
 			ibRequest.getAllContractsWithFilter_IB(start,limit);
@@ -163,7 +213,7 @@ System.out.println("============================================================
 				JSONObject jon = new JSONObject();
 					jon.put("I", ibRequest.rs.getString("i"));
 					jon.put("ID_DOG", ibRequest.rs.getString("ID_DOG"));
-					jon.put("KONTROL", ibRequest.rs.getString("KONTROL"));
+					jon.put("KONTROL", fCustomer+ ibRequest.rs.getString("KONTROL"));
 					jon.put("ID_COUNT", ibRequest.rs.getString("ID_COUNT"));
 					jon.put("ID_ACCOUNT", ibRequest.rs.getString("ID_ACCOUNT"));
 					jon.put("NAMEDOG", ibRequest.rs.getString("NAMEDOG"));

@@ -192,7 +192,7 @@ if  (sqlRequest.isAdmin(System.getProperty("user.name"))==true){
 
 <br>
 
-<form name="addFRM" method="get" action="">
+<form name="addFRM" method="get" action="DataServletIB">
 <table border="1px">
 	<tr>
 		<td>
@@ -220,7 +220,7 @@ if  (sqlRequest.isAdmin(System.getProperty("user.name"))==true){
 		</td>
 	</tr>
 </table>
-
+<input type="submit" value="send">
 <br>
 </form>
 
@@ -229,7 +229,7 @@ if  (sqlRequest.isAdmin(System.getProperty("user.name"))==true){
 
 </form>
 write
-<form action="DataServletWriter">
+<form action="DataServlet">
 <input type="submit">
 <input type="button" value="Отмена_history"   onclick="window.history.go(-1);">
 <button onclick="history.back();">Back</button>

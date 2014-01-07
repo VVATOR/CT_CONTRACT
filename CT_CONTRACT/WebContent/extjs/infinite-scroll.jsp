@@ -151,9 +151,11 @@ Ext.onReady(function() {
 			// this page, an HttpProxy would be better
 			type : 'jsonp',
 			url : 'DataServletIB?SessionUser=vikhlaev',// http://ws-16:8080/DKOKT_ext/
-			extraParams : {
-				total : 50000
+			extraParanetms : {
+				total : 50000,
+				rus: 'привет'
 			},
+			params: {rrr: 'колян'},
 			reader : {
 				root : 'data',
 				totalProperty : 'totalCount'
@@ -592,7 +594,7 @@ Ext.onReady(function() {
 		    "title": "форма",
 		    "titleCollapse": false,
 		    "jsonSubmit": true,
-		    "method": "POST",
+		    "method": "get",
 		    "standardSubmit": true,
 		    "url": "http://localhost:8080/CT_CONTRACT_ib/DataServletIB",
 		    "items": [ grid ],

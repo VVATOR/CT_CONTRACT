@@ -14,8 +14,8 @@ public class IBRequest{
 	
 	public IBRequest() throws Exception {
 	    // TODO Auto-generated constructor stub
-		ibC = new IBConnection("IHVOST", "15111987", "bl-databases", "3050", "e:/Ibdata/IRINA", "MTS.GDB", "windows-1251");
-		//ibC = new IBConnection("SYSDBA", "masterkey", "localhost", "3050", "d:/SERVER/INTERBASE/MTS", "MTS.GDB", "windows-1251");
+		//ibC = new IBConnection("IHVOST", "15111987", "bl-databases", "3050", "e:/Ibdata/IRINA", "MTS.GDB", "windows-1251");
+		ibC = new IBConnection("SYSDBA", "masterkey", "localhost", "3050", "d:/SERVER/INTERBASE/MTS", "MTS.GDB", "windows-1251");
     	ibC.getConnection();    	
     	stmt = (Statement) ibC.getCon().createStatement();
     }

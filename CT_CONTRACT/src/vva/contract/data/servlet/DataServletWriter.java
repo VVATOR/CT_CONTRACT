@@ -1,6 +1,7 @@
 package vva.contract.data.servlet;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,26 +20,11 @@ public class DataServletWriter extends HttpServlet {
 		String callback=request.getParameter("");
 		SQLRequest sqlRequest;
 		
-		try {			
-			sqlRequest = new SQLRequest();
-			int a=sqlRequest.insertSql(   "INSERT INTO CT_ALLCONTRACTS"
-										+ " (ID, DEADLINE, SESSION_USER, DEPARTMENT_ID, NUM, ID_RIGHTHOLDERS, ID_CUSTOMERS, ID_PERFORMANCES, THEME, DATE_REG)"
-										+ "  VALUES"
-										+ "((SELECT MAX(ID) + 1 AS FREE_ID FROM CT_ALLCONTRACTS), "	
-										+ " '16.06.1991', 'VVV', 11, 'rg', 10, 12, 31, 'hh', '20.02.2012')");
-			if (a>0)
-			System.out.println("vstavleno: "+a+" zapisey");	
-			else
-			System.out.println("NE vstavleno");	
-			
-			//response.sendRedirect("index.jsp");
-		//	response.
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+		System.out.println("1: "+new String(request.getParameter("rus")));
+		
+		//System.out.println("2: "+URLDecoder.decode(new String(request.getParameter("rus"));
+		System.out.println("3: "+new String(request.getParameter("rus").getBytes("ISO-8859-1"),"windows-1251"));
+		
 	}
 
 	
