@@ -117,12 +117,19 @@ Ext.onReady(function() {
 	
 	
 	
-	// create the Data Store
+	Ext.define('Model_CUSTOMER', {
+		extend : 'Ext.data.Model',
+		fields: [		         
+		         'NAMEDOG',
+		         'NOM_DOG',		         	         
+			    ],
+		idProperty : 'threadid'
+	});
 	
-	var store1= Ext.create('Ext.data.Store', {
-		
+	// create the Data Store	
+	var store1= Ext.create('Ext.data.Store', {		
         autoLoad: true,
-        model: 'ModelDocumentKOKT',
+        model: 'Model_CUSTOMER',
         id: 'store1',
         pageSize: 10,
         proxy: {
@@ -190,7 +197,7 @@ Ext.onReady(function() {
 	
 	var mody=function setParamStoreInRuntime() { 
     	store.getProxy().extraParams.fCustomer    = Ext.getCmp("cbfCustomer").getValue(); /// УРА ЭТО СУПЕР  
-    	alert("zz:"+Ext.getCmp("cbfRightholder").getValue());
+    	//alert("zz:"+Ext.getCmp("cbfRightholder").getValue());
     	
 		store.getProxy().extraParams.fPerformer   = Ext.getCmp("cbfPerformer").getValue(); /// УРА ЭТО СУПЕР    
 		store.getProxy().extraParams.fRightholder = Ext.getCmp("cbfRightholder").getValue(); /// УРА ЭТО СУПЕР    
@@ -209,28 +216,26 @@ Ext.onReady(function() {
 	            "store": store,
 	            "viewConfig": {
 	                "margin": 0
-	            },
+	            }
 	            
 	            
+	            <% /// если пользователь имеет доступ то показать ему сумму
+	               if(ACCESS.equals("0")){           			
+    			%> 
+    			,  // - разделитель
 	    	    plugins: [{	    	
 	                ptype: 'rowexpander',            
-	                rowBodyTpl : [                          
-	    	            <% /// если пользователь имеет доступ то показать ему сумму	                
-	    	               if  (ACCESS.equals("0")){
-	    	               		out.println("'<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>'"); 
-	    	               };
-	    	            %> ,         
-	                    '<div style="color: green;"> </div>',
-	                    '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-	                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
-	                    
-	                ]
+	                rowBodyTpl : [  '<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>',         
+				                    '<div style="color: green;"> </div>',
+				                    '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
+				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',				                    
+				                 ]
 	            }], 
 	           
 	            collapsible: true,
-	            collapse: true,
-
-	            
+	            collapse: true
+				<% } %>
+	            ,   // - разделитель
 	            
 	            "columns": [
 	                {
@@ -412,10 +417,10 @@ Ext.onReady(function() {
 	                                    "fieldLabel": "Заказчик",
 	                                    "labelAlign": "top",
 	                                    "name": "find",
-	                                    "displayField": "KONTROL",
+	                                    "displayField": "NAMEDOG",
 	                                    "pageSize": 15,
-	                                    "store": store,
-	                                    "valueField": "KONTROL",
+	                                    "store": store1,
+	                                    "valueField": "NAMEDOG",
 	                                    "listeners": {
                                             change:  mody
                                     	} 
