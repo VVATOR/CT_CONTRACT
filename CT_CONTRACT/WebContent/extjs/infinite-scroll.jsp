@@ -423,7 +423,7 @@ Ext.onReady(function() {
 	                                    "valueField": "NAMEDOG",
 	                                    "listeners": {
                                             change:  mody
-                                    	} 
+                                    	}  
 	                                },
 	                                {
 	                                    "xtype": "combobox",
