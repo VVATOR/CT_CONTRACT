@@ -1,0 +1,25 @@
+Ext.define('Model_CUSTOMER', {
+		extend : 'Ext.data.Model',
+		fields: [		         
+		         'NAMEDOG',
+		         'NOM_DOG',		         	         
+			    ],
+		idProperty : 'threadid'
+	});
+	
+	// create the Data Store	
+	var store1= Ext.create('Ext.data.Store', {		
+        autoLoad: true,
+        model: 'Model_CUSTOMER',
+        id: 'store1',
+        pageSize: 10,
+        proxy: {
+            type: 'jsonp',
+            url: 'DataServletIB?SessionUser=vikhlae&autoComplete=1',
+            reader: {
+               
+                root: 'data',
+                totalProperty: 'totalCount'
+            }
+        }
+	});

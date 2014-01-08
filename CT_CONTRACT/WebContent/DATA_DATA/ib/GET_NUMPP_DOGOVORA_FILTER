@@ -1,0 +1,128 @@
+CREATE PROCEDURE GET_NUMPP_DOGOVORA_FILTER (
+    F_FULLNAMEDOG VARCHAR(100),
+    F_RESULTDOG VARCHAR(100),
+    F_RIGHTHOLDER VARCHAR(100),
+    F_SUBDOG_INPROCESS VARCHAR(100),
+    F_SUBDOG_PRED VARCHAR(100),
+    F_PERFORMER VARCHAR(100),
+    F_COUNTERAGENT_FNAME VARCHAR(100))
+RETURNS (
+    I INTEGER,
+    ID_DOG INTEGER,
+    KONTROL VARCHAR(255),
+    ID_COUNT INTEGER,
+    ID_ACCOUNT INTEGER,
+    NAMEDOG VARCHAR(100),
+    NOM_DOG CHAR(60),
+    DATA_W DATE,
+    SROK_PLAT DATE,
+    SUMMA NUMERIC(15,2),
+    CURRENCY CHAR(10),
+    NOTE VARCHAR(500),
+    IS_DEL INTEGER,
+    USER_FIO CHAR(50),
+    STATUS CHAR(2),
+    FULLNAMEDOG CHAR(120),
+    PRIM CHAR(50),
+    USL_POST CHAR(150),
+    DATE_STATUS TIMESTAMP,
+    REG_NOM SMALLINT,
+    REG_DATE TIMESTAMP,
+    REG_SECT CHAR(5),
+    REG_INDEX CHAR(10),
+    FULL_NUM CHAR(25),
+    USER_FIO1 SMALLINT,
+    COUNTERAGENT_FNAME VARCHAR(500),
+    PERFORMER VARCHAR(500),
+    RIGHTHOLDER VARCHAR(500),
+    SUBDOG_PRED VARCHAR(500),
+    SUBDOG_INPROCESS VARCHAR(500))
+AS
+begin
+
+For  select
+           I,
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1,
+
+           counteragent_fname,
+           performer,
+           rightholder,
+
+           subdog_pred,
+           subdog_inProcess
+
+    from     GET_NUMPP_DOGOVORA
+  where      (counteragent_fname like '%'||:f_COUNTERAGENT_FNAME||'%')
+            and
+             (performer like  '%'||:f_performer||'%')
+            and
+             (rightholder like '%'||:f_rightholder||'%')
+            and
+             (subdog_pred like '%'||:f_subdog_pred||'%')
+            and
+             (subdog_inProcess like '%'||:f_subdog_inProcess||'%')
+            and
+             (RESULTDOG like '%'||:F_RESULTDOG||'%')
+
+
+    into :
+           I,
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1,
+
+           counteragent_fname,
+           performer,
+           rightholder,
+
+           subdog_pred,
+           subdog_inProcess
+    Do  begin
+
+    suspend;
+    end
+end

@@ -1,0 +1,81 @@
+CREATE PROCEDURE GET_DOG_NIOKR_SUBDOG (
+    ID_DOGOVORA INTEGER,
+    TIP_DOC INTEGER)
+RETURNS (
+    SUBDOG VARCHAR(500),
+    ID_DOG INTEGER,
+    NAIM VARCHAR(500),
+    NUMBERS VARCHAR(6),
+    VID INTEGER,
+    UFA VARCHAR(1),
+    TIP INTEGER,
+    DATA_ADD VARCHAR(50),
+    ID INTEGER)
+AS
+DECLARE VARIABLE BUF VARCHAR(3500);
+DECLARE VARIABLE I INTEGER;
+begin
+BUF='';
+SUBDOG='';
+I=0;
+For select
+            ID_DOG,
+            NAIM,
+            NUMBERS,
+            VID,
+            UFA,
+            TIP,
+            DATA_ADD,
+            ID
+    from  DOG_NIOKR_SUBDOG
+    where  ID_DOG = :id_dogovora
+          and
+           tip = :tip_doc
+    into :
+          ID_DOG,
+            NAIM,
+            NUMBERS,
+            VID,
+            UFA,
+            TIP,
+            DATA_ADD,
+            ID
+    Do begin
+
+                               if (TIP=0) then
+                              begin
+                                    if (VID=0) then
+                                        buf=:NAIM||' № '||:NUMBERS||'[патент]';
+                                    if (VID=1) then
+                                    begin
+                                        if (UFA='A') then
+                                            buf=:NAIM||' № '||'a'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                        if (UFA='F') then
+                                            buf=:NAIM||' № '||'f'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                        if (UFA='U') then
+                                            buf=:NAIM||' № '||'u'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                    end
+                              end
+
+
+                              if (TIP=1) then
+                              begin
+                                    if (VID=0) then
+                                        buf=:NAIM||' № '||:NUMBERS||'[патент]';
+                                    if (VID=1) then
+                                        begin
+                                        if (UFA='A') then
+                                            buf=:NAIM||' № '||'a'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                        if (UFA='F') then
+                                            buf=:NAIM||' № '||'f'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                        if (UFA='U') then
+                                            buf=:NAIM||' № '||'u'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                    end
+                              end
+
+
+    I=I+1;
+    SUBDOG=:SUBDOG||' <br> '||buf;
+    end
+     suspend;
+end
