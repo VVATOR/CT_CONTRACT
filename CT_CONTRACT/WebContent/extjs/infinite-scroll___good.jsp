@@ -234,19 +234,18 @@ Ext.onReady(function() {
 	
 	var mody=function setParamStoreInRuntime() { 
     	store.getProxy().extraParams.fCustomer    = Ext.getCmp("cbfCustomer").getValue(); /// ”–¿ ›“Œ —”œ≈–  
+    	//alert("zz:"+Ext.getCmp("cbfRightholder").getValue());
+    	
 		store.getProxy().extraParams.fPerformer   = Ext.getCmp("cbfPerformer").getValue(); /// ”–¿ ›“Œ —”œ≈–    
 		store.getProxy().extraParams.fRightholder = Ext.getCmp("cbfRightholder").getValue(); /// ”–¿ ›“Œ —”œ≈–    
-		
 	     	
     };
 	 
 	var grid = Ext.create('Ext.grid.Panel',
 	        {
-		
-		
 	          //  "xtype": "gridpanel",
 	            "cls": "linear",
-	            "height": 650,
+	            "height": 450,
 	            "collapsed": false,
 	            "title": "ƒÓ„Ó‚Ó‡ Õ»Œ “–",
 	            "titleCollapse": false,
@@ -258,8 +257,7 @@ Ext.onReady(function() {
 	            
 	            
 	            <% // ÂÒÎË ÔÓÎ¸ÁÓ‚‡ÚÂÎ¸ ËÏÂÂÚ ‰ÓÒÚÛÔ ÚÓ ÔÓÍ‡Á‡Ú¸ ÂÏÛ ÒÛÏÏÛ
-	               if(ACCESS.equals("0"))
-	               {           			
+	               if(ACCESS.equals("0")){           			
     			%> 
     			,  // - ‡Á‰ÂÎËÚÂÎ¸
 	    	    plugins: [{	    	
@@ -556,145 +554,136 @@ Ext.onReady(function() {
 	                    "dock": "left",
 	                    "items": [
 	                        {
-                            "xtype": "buttongroup",
-                            "height": 431,
-                            "title": "‘ËÎ¸Ú",
-                            "columns": 1,
-                            "items": [
-						
-								{
-								    xtype: 'datefield',
-								    fieldLabel: 'Ò',
-								    format: 'm.d.Y'
-								},{
-								    xtype: 'datefield',
-								    fieldLabel: 'ÔÓ',
-								    format: 'm.d.Y'
-								},
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_FULLNAMEDOG",
-                                    "labelAlign": "top",
-                                    "name": "find",
-                                    "size": 15,
-                                    "displayField": "FULLNAMEDOG",
-                                    "pageSize": 15,
-                                    "store": "store",
-                                    "valueField": "FULLNAMEDOG"
-                                },
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_RESULTDOG",
-                                    "labelAlign": "top",
-                                    "size": 15,
-                                    "displayField": "RESULTDOG",
-                                    "pageSize": 15,
-                                    "store": "store",
-                                    "valueField": "RESULTDOG"
-                                },
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_RIGHTHOLDER",
-                                    "labelAlign": "top",
-                                    "size": 15,
-                                    "displayField": "rightholder",
-                                    "pageSize": 15,
-                                    "store": "store",
-                                    "valueField": "rightholder"
-                                },
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_SUBDOG_INPROCESS",
-                                    "labelAlign": "top",
-                                    "size": 15,
-                                    "displayField": "subdog_inProcess",
-                                    "pageSize": 15,
-                                    "store": "store",
-                                    "valueField": "subdog_inProcess"
-                                },
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_SUBDOG_PRED",
-                                    "labelAlign": "top",
-                                    "size": 15,
-                                    "displayField": "subdog_pred",
-                                    "store": "store",
-                                    "valueField": "subdog_pred"
-                                },
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_PERFORMER",
-                                    "labelAlign": "top",
-                                    "size": 15,
-                                    "displayField": "performer",
-                                    "pageSize": 15,
-                                    "store": "store",
-                                    "valueField": "performer"
-                                },
-                                {
-                                    "xtype": "combobox",
-                                    "width": 250,
-                                    "fieldLabel": "F_COUNTERAGENT_FNAME",
-                                    "labelAlign": "top",
-                                    "size": 15,
-                                    "displayField": "counteragent_fname",
-                                    "pageSize": 15,
-                                    "store": "store",
-                                    "valueField": "counteragent_fname"
-                                },
-                                {
-                                    "xtype": "button",
-                                    "text": "Button 1"
-                                },
-                                {
-                                    "xtype": "button",
-                                    "text": "Button 2"
-                                },
-                                {
-                                    "xtype": "button",
-                                    "handler": function(button, event) {
-                                        var form = this.up('form').getForm();
+	                            "xtype": "buttongroup",
+	                            "height": 290,
+	                            "title": "Buttons",
+	                            "columns": 1,
+	                            "items": [
+	                                {
+	                                    "xtype": "combobox",
+	                                    "id": "cbfCustomer",
+	                                    "width": 250,
+	                                    "fieldLabel": "«‡Í‡Á˜ËÍ",
+	                                    "labelAlign": "top",
+	                                    "name": "find",
+	                                    "displayField": "NAMEDOG",
+	                                    "pageSize": 15,
+	                                    "store": store1,
+	                                    "valueField": "NAMEDOG",
+	                                    
+	                                    
+	                                    //"maskRe": /[0-9:a]/,  // ‰ÓÔÛÒÚËÏ˚Â ÒËÏ‚ÓÎ˚ ‰Îˇ ‚‚Ó‰‡
+	                                    //"regex" : /^\d{2}:\d{2}$/,
+										//"regexText" : 'Please enter time in HH:MM format', // ÚÂÍÒÚ ÔË Ó¯Ë·ÍÂ, ‚‚Ó‰‡ regexp
 
-                                        /* Normally we would submit the form to the server here and handle the response...
-                                        form.submit({
-                                        clientValidation: true,
-                                        url: 'register.php',
-                                        success: function(form, action) {
-                                        //...
-                                    },
-                                    failure: function(form, action) {
-                                        //...
-                                    }
-                                });
-                                */
+	                                    
+	                                    
+	                                    "listeners": {
+                                            change:  mody
+                                    	}  
+	                                },
+	                                {
+	                                    "xtype": "combobox",
+	                                    "id": "cbfPerformer",
+	                                    "width": 250,
+	                                    "fieldLabel": "»ÒÔÓÎÌËÚÂÎ¸",
+	                                    "labelAlign": "top",
+	                                    "displayField": "NAMEDOG",
+	                                    "pageSize": 15,
+	                                    "store": store,
+	                                    "valueField": "NAMEDOG",
+	                                    "listeners": {
+                                            change:  mody
+                                    	} 
+	                                },
+	                                {
+	                                    "xtype": "combobox",
+	                                    "id": 'cbfRightholder',
+	                                    "width": 250,
+	                                    
+	                                    "fieldLabel": "œ‡‚ÓÓ·Î‡‰‡ÚÂÎ¸",
+	                                    "labelAlign": "top",
+	                                    "displayField": "FULLNAMEDOG",
+	                                    "pageSize": 15,
+	                                    "store": store,
+	                                    "valueField": "FULLNAMEDOG",
+                                        "listeners": {
+                                            change:  mody
+                                    	}                                           
+	                                },
+	                                {
+	                                    "xtype": "button",
+	                                    "handler": function(button, event) {
+	                                        var searchValue = Ext.getCmp("cbf1").getValue();//get new value 
+	                                     //   store.load().filter('jsonGridFielName', searchValue); //load filtered data
+	                                        
+	                                    	store.load().filter('jsonGridFielName', Ext.getCmp("cbf1").getValue()); //load filtered data
+	                                    	
+	                                    	
 
-                                form.submit({
-                                    clientValidation: true,
-                                    url: 'http://localhost:8080/CT_Contracts/Adder?',
-                                    success: function(form, action) {
-                                        //   Ext.Msg.alert('success');
-                                    },
-                                    failure: function(form, action) {
-                                        //  Ext.Msg.alert('failure');
-                                    }
-                                });
+	                                    	store.getProxy().extraParams.fCustomer    = Ext.getCmp("cbf1").getValue();/// ”–¿ ›“Œ —”œ≈–
+	                                    	store.getProxy().extraParams.fPerformer   = Ext.getCmp("cbf1").getValue();/// ”–¿ ›“Œ —”œ≈–
+	                                    	store.getProxy().extraParams.fRightholder = Ext.getCmp("cbf1").getValue();/// ”–¿ ›“Œ —”œ≈–
+	                                    	
+	                                    	store.getProxy().extraParams.fDateReg_interval1 = Ext.getCmp("cbf1").getValue();/// ”–¿ ›“Œ —”œ≈–
+	                                    	store.getProxy().extraParams.fDateReg_interval2 = Ext.getCmp("cbf1").getValue();/// ”–¿ ›“Œ —”œ≈–
+	                                    	
+	                                    	
+	                                    	
+	                                        store.load({
+	                                            params:{
+	                                                fCustomer: Ext.getCmp("cbf1").getValue(),
+	                                                fPerformer: Ext.getCmp("cbf1").getValue(),
+	                                                fRightholder: Ext.getCmp("cbf1").getValue()
+	                                            }
+	                                            //other options like a callback function, append/add flag, etc. 
+	                                        });
+	                                    },
+	                                    "text": "filter"
+	                                },
+	                                {
+	                                    "xtype": "button",
+	                                    "text": "Button 2"
+	                                },
+	                                {
+	                                    "xtype": "button",
+	                                    "handler": function(button, event) {
+	                                        var form = this.up('form').getForm();
+
+	                                        /* Normally we would submit the form to the server here and handle the response...
+	                                        form.submit({
+	                                        clientValidation: true,
+	                                        url: 'register.php',
+	                                        success: function(form, action) {
+	                                        //...
+	                                    },
+	                                    failure: function(form, action) {
+	                                        //...
+	                                    }
+	                                });
+	                                */
+
+	                                form.submit({
+	                                    clientValidation: true,
+	                                    url: 'http://localhost:8080/CT_Contracts/Adder?',
+	                                    success: function(form, action) {
+	                                        //   Ext.Msg.alert('success');
+	                                    },
+	                                    failure: function(form, action) {
+	                                        //  Ext.Msg.alert('failure');
+	                                    }
+	                                });
 
 
 
-                                if (form.isValid()) {
-                                    Ext.Msg.alert('Submitted Values', form.getValues(true));
-                                }
-                                    },
-                                    "text": "œŒ»— "
-                                }
-                            ]
-                        }
+	                                if (form.isValid()) {
+	                                    Ext.Msg.alert('Submitted Values', form.getValues(true));
+	                                }
+	                                    },
+	                                    "text": "œŒ»— "
+	                                }
+	                            ]
+	                        }
 	                    ]
 	                },
 	                {
@@ -754,13 +743,14 @@ Ext.onReady(function() {
 	                }
 	            ]
 	            
-            
+	            
+	            
 	        });
 		
 	var form = Ext.create('Ext.form.Panel',
 		{
 		    "xtype": "form",
-		    "height": 700,
+		    "height": 500,
 		    "width": 1200,
 		    "bodyPadding": 10,
 		    "title": "",
@@ -770,7 +760,6 @@ Ext.onReady(function() {
 		    "standardSubmit": true,
 		    "url": "http://localhost:8080/CT_CONTRACT_ib/DataServletIB",
 		    "items": [ grid ],
-		    
 		    renderTo : 'content'// ,Ext.getBody(), //
 		});
 		

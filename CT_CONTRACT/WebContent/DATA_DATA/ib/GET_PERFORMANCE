@@ -1,0 +1,23 @@
+CREATE PROCEDURE GET_PERFORMANCE (
+    ID_DOGOVORA INTEGER)
+RETURNS (
+    PERFORMER VARCHAR(500))
+AS
+DECLARE VARIABLE I INTEGER;
+DECLARE VARIABLE BUF VARCHAR(500);
+begin
+
+PERFORMER='';
+For select
+          PERFORMER
+    from  dog_performer
+    where ID_DOG=:id_dogovora
+    into :
+          buf
+    Do begin
+
+     PERFORMER=buf||' <br> '||:performer;
+
+    end
+     suspend;
+end

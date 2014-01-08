@@ -1,0 +1,26 @@
+CREATE PROCEDURE GET_COUNTERAGENT (
+    ID_COUNT_IZ_DOG INTEGER)
+RETURNS (
+    ID_COUNT INTEGER,
+    FULLNAMECOUNT VARCHAR(500))
+AS
+DECLARE VARIABLE I INTEGER;
+DECLARE VARIABLE BUF VARCHAR(500);
+begin
+
+FULLNAMECOUNT='';
+For select
+          ID_COUNT,
+          FULLNAMECOUNT
+    from  COUNTERAGENT
+    where ID_COUNT=:ID_COUNT_iz_dog
+    into :
+          ID_COUNT,
+          buf
+    Do begin
+
+     FULLNAMECOUNT=buf||' <br> '||:FULLNAMECOUNT;
+
+    end
+     suspend;
+end
