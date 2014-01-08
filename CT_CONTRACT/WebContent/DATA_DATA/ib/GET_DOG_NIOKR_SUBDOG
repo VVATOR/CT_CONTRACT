@@ -1,0 +1,62 @@
+create procedure GET_DOG_NIOKR_SUBDOG (
+    ID_DOGOVORA integer,
+    TIP_DOC integer)
+returns (
+    SUBDOG varchar(500),
+    ID_DOG integer,
+    NAIM varchar(500),
+    NUMBERS varchar(6),
+    VID integer,
+    UFA varchar(1),
+    TIP integer,
+    DATA_ADD varchar(50),
+    ID integer)
+as
+declare variable BUF varchar(3500);
+declare variable I integer;
+begin
+BUF='';
+SUBDOG='';
+I=0;
+For select
+            ID_DOG,
+            NAIM,
+            NUMBERS,
+            VID,
+            UFA,
+            TIP,
+            DATA_ADD,
+            ID
+    from  DOG_NIOKR_SUBDOG
+    where  ID_DOG = :id_dogovora
+          and
+           tip = :tip_doc
+    into :
+          ID_DOG,
+            NAIM,
+            NUMBERS,
+            VID,
+            UFA,
+            TIP,
+            DATA_ADD,
+            ID
+    Do begin
+                              if (TIP=1) then
+                              begin
+                                if (VID=1) then
+                                    buf=:NAIM||' № '||'a'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                if (VID=2) then
+                                    buf=:NAIM||' № '||'f'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                                if (VID=3) then
+                                    buf=:NAIM||' № '||'u'||:NUMBERS||'('||:DATA_ADD||')[заявка]';
+                              end
+                              if (TIP=0) then
+                              begin
+                                  buf=:NAIM||' № '||:NUMBERS||'('||:DATA_ADD||')[патент]';
+                              end
+                   /*buf=:NUMBERS||:NAIM; */
+    I=I+1;
+    SUBDOG=:SUBDOG||' <br> '||I||') '||buf;
+    end
+     suspend;
+end

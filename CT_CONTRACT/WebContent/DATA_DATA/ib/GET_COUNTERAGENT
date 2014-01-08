@@ -1,0 +1,23 @@
+create procedure GET_COUNTERAGENT (
+    ID_COUNT integer)
+returns (
+    FULLNAMECOUNT varchar(500))
+as
+declare variable I integer;
+declare variable BUF varchar(500);
+begin
+
+FULLNAMECOUNT='';
+For select
+          FULLNAMECOUNT
+    from  COUNTERAGENT
+    where ID_COUNT=:ID_COUNT
+    into :
+          buf
+    Do begin
+
+     FULLNAMECOUNT=buf||' <br> '||:FULLNAMECOUNT;
+
+    end
+     suspend;
+end

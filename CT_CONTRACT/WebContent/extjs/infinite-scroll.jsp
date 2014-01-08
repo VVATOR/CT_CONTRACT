@@ -92,7 +92,10 @@ Ext.onReady(function() {
 		         'ID_ACCOUNT',
 		         'NAMEDOG',
 		         'NOM_DOG',
-		         'DATA_W',
+		         {	name:'DATA_W',
+		        	dateFormat: 'd-m-Y H:i',
+		 			dateReadFormat: 'Y-m-d H:i:s.u'
+		 		 },
 		         'SROK_PLAT',
 		         'SUMMA',
 		         'CURRENCY',
@@ -110,7 +113,13 @@ Ext.onReady(function() {
 		         'REG_SECT',
 		         'REG_INDEX',
 		         'FULL_NUM',
-		         'USER_FIO1'		         
+		         'USER_FIO1',
+		         
+		         'counteragent_fname',
+		         'performer',
+		         'rightholder',
+		         'subdog_pred',
+		         'subdog_inProcess'
 			    ],
 		idProperty : 'threadid'
 	});
@@ -180,7 +189,7 @@ Ext.onReady(function() {
 	
 	
 	
-	var pluginExpanded = true; // для панели пэйджинга
+	//var pluginExpanded = true; // для панели пэйджинга
 	
 	var movieTpl = new Ext.XTemplate(
 		    '<tpl for="."><div class="movie-item">',
@@ -219,7 +228,7 @@ Ext.onReady(function() {
 	            }
 	            
 	            
-	            <% /// если пользователь имеет доступ то показать ему сумму
+	            <% // если пользователь имеет доступ то показать ему сумму
 	               if(ACCESS.equals("0")){           			
     			%> 
     			,  // - разделитель
@@ -228,151 +237,258 @@ Ext.onReady(function() {
 	                rowBodyTpl : [  '<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>',         
 				                    '<div style="color: green;"> </div>',
 				                    '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',				                    
-				                 ]
+				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
+				                   
+			                 // '<script>',
+			                 // ' if("{subdog_pred}"!="" || "{subdog_inProcess}"!=""){ ',
+				                    '<table class="pluginTAble"> ',
+				                    '	<thead> ',
+				                    '		<th width="400px" scope="col">Номера охранных документов на ОППС, созданных в результате работ по договору: </th>',
+				                    '		<th width="400px" scope="col">Номера охранных документов на ОППС:</th',
+				                    '	</thead> ',
+				                    '	<tbody ',
+				                    '	<tr> ',
+				                    '		<td> {subdog_pred}',
+				                    '		</td> ',
+				                    '		<td> {subdog_inProcess}',
+				                    '		</td> ',
+				                    '	</tr> ',
+				                    '	<tr> ',
+				                    '	</tr> ',
+				                    '	</tbody>',
+				                    '</table> '
+			                  //'<script>',
+			                 // '} '
+					            
+				                 ],
+				                 collapse: false,
 	            }], 
 	           
-	            collapsible: true,
-	            collapse: true
+	            collapsible: false,
+	            collapse: false
 				<% } %>
-	            ,   // - разделитель
-	            
+				
+				
+	            ,   // - разделитель	            
 	            "columns": [
-	                {
-	                    "xtype": "gridcolumn",
-	                    "width": 45,
-	                    "dataIndex": "I",
-	                    "text": "I"
-	                },
-	                {
-	                    "xtype": "templatecolumn",
-	                    "tpl": [
-	                        "<a href=\"DataServlet?a={SUMMA}\"><img src=\"design/images/contract_status/warning.png\" height=\"12px\" width=\"12px\"></a>"
-	                    ],
-	                    "width": 35,
-	                    "text": ""
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "ID_DOG",
-	                    "text": "ID_DOG"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "KONTROL",
-	                    "text": "KONTROL"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "ID_COUNT",
-	                    "text": "ID_COUNT"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "ID_ACCOUNT",
-	                    "text": "ID_ACCOUNT"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "NAMEDOG",
-	                    "text": "NAMEDOG"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "NOM_DOG",
-	                    "text": "NOM_DOG"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "DATA_W",
-	                    "text": "DATA_W"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "SROK_PLAT",
-	                    "text": "SROK_PLAT"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "SUMMA",
-	                    "text": "SUMMA"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "CURRENCY",
-	                    "text": "CURRENCY"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "NOTE",
-	                    "renderer": "columnWrap",
-	                    "text": "NOTE"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "IS_DEL",
-	                    "text": "IS_DEL"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "USER_FIO",
-	                    "text": "USER_FIO"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "STATUS",
-	                    "text": "STATUS"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "FULLNAMEDOG",
-	                    "text": "FULLNAMEDOG"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "PRIM",
-	                    "text": "PRIM"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "USL_POST",
-	                    "text": "USL_POST"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "DATE_STATUS",
-	                    "text": "DATE_STATUS"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "REG_NOM",
-	                    "text": "REG_NOM"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "REG_DATE",
-	                    "text": "REG_DATE"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "REG_SECT",
-	                    "text": "REG_SECT"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "REG_INDEX",
-	                    "text": "REG_INDEX"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "FULL_NUM",
-	                    "text": "FULL_NUM"
-	                },
-	                {
-	                    "xtype": "gridcolumn",
-	                    "dataIndex": "USER_FIO1",
-	                    "text": "USER_FIO1"
-	                }
+	                        
+							{
+							    "xtype": "gridcolumn",
+							    "width": 51,
+							    "dataIndex": "I",
+							    "text": "№ (I)",
+							},
+							{
+							    "xtype": "templatecolumn",
+							    "tpl": [
+							        "<a href=\"DataServlet?a={SUMMA}\"><img src=\"design/images/contract_status/warning.png\" height=\"12px\" width=\"12px\"></a>"
+							    ],
+							    "width": 35,
+							    "text": "",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "width": 59,
+							    "dataIndex": "ID_DOG",
+							    "text": "ID_DOG",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "KONTROL",
+							    "hideable": false,
+							    "text": "KONTROL",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "ID_COUNT",
+							    "hideable": false,
+							    "text": "ID_COUNT",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "ID_ACCOUNT",
+							    "hideable": false,
+							    "text": "ID_ACCOUNT",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "dataIndex": "NAMEDOG",
+							    "text": "Вид документа<br>(NAMEDOG)",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "dataIndex": "NOM_DOG",
+							    "text": "Номер входящего<br>договора (NOM_DOG)",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "dataIndex": "DATA_W",
+							    "text": "Дата возникновения<br>договора (DATA_W)",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "SROK_PLAT",
+							    "hideable": false,
+							    "text": "SROK_PLAT"
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "SUMMA",
+							    "hideable": false,
+							    "text": "SUMMA"
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "CURRENCY",
+							    "hideable": false,
+							    "text": "CURRENCY",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "NOTE",
+							    "hideable": false,
+							    "text": "NOTE",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "IS_DEL",
+							    "hideable": false,
+							    "text": "IS_DEL",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "USER_FIO",
+							    "hideable": false,
+							    "text": "USER_FIO",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "STATUS",
+							    "hideable": false,
+							    "text": "STATUS",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "dataIndex": "FULLNAMEDOG",
+							    "text": "Полное название<br>договора (FULLNAMEDOG)",
+							    renderer : columnWrap,
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "PRIM",
+							    "hideable": false,
+							    "text": "PRIM",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "USL_POST",
+							    "hideable": false,
+							    "text": "USL_POST",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "DATE_STATUS",
+							    "hideable": false,
+							    "text": "DATE_STATUS",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "dataIndex": "REG_NOM",
+							    "text": "Регистрационный номер<br>документа (REG_NOM)",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "width": 157,
+							    "dataIndex": "REG_DATE",
+							    "text": "Дата и время регистрации<br>договора (REG_DATE)",    
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "REG_SECT",
+							    "hideable": false,
+							    "text": "REG_SECT",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "REG_INDEX",
+							    "hideable": false,
+							    "text": "REG_INDEX",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "FULL_NUM",
+							    "hideable": false,
+							    "text": "FULL_NUM",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "USER_FIO1",
+							    "hideable": false,
+							    "text": "USER_FIO1",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "draggable": false,
+							    "text": "Участники",
+							    "columns": [
+							        {
+							            "xtype": "gridcolumn",
+							            "dataIndex": "counteragent_fname",
+							            "text": "Заказчики<br>(Counteragent_fname)",
+							            renderer : columnWrap,
+							            "allowBlank": false,
+							            
+							        },
+							        {
+							            "xtype": "gridcolumn",
+							            "dataIndex": "rightholder",
+							            "text": "Правообладатели<br>(Rightholder)",
+							            renderer : columnWrap,
+							        },
+							        {
+							            "xtype": "gridcolumn",
+							            "dataIndex": "performer",
+							            "text": "Исполнители<br>(Performer)",
+							            renderer : columnWrap,
+							        }
+							    ]
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "subdog_pred",
+							    "hideable": false,
+							    "text": "Subdog_pred",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "hidden": true,
+							    "dataIndex": "subdog_inProcess",
+							    "hideable": false,
+							    "text": "Subdog_inProcess",
+							},
+							{
+							    "xtype": "gridcolumn",
+							    "dataIndex": "",
+							    "text": "",
+							}
 	            ],
 	            "dockedItems": [
 	                {
@@ -392,11 +508,12 @@ Ext.onReady(function() {
 	                    "store": store,
 	                    "items": [
 	                        {
-	                            "xtype": "tbseparator"
+	                            "xtype": "tbseparator",
 	                        },
 	                        {
 	                            "xtype": "button",
-	                            "text": "Добавить"
+	                            "text": "Добавить",
+	                            handler: function(){ infoWin.show();}
 	                        }
 	                    ]
 	                },
@@ -421,6 +538,14 @@ Ext.onReady(function() {
 	                                    "pageSize": 15,
 	                                    "store": store1,
 	                                    "valueField": "NAMEDOG",
+	                                    
+	                                    
+	                                    //"maskRe": /[0-9:a]/,  // допустимые символы для ввода
+	                                    //"regex" : /^\d{2}:\d{2}$/,
+										//"regexText" : 'Please enter time in HH:MM format', // текст при ошибке, ввода regexp
+
+	                                    
+	                                    
 	                                    "listeners": {
                                             change:  mody
                                     	}  
@@ -596,7 +721,7 @@ Ext.onReady(function() {
 		    "height": 500,
 		    "width": 1200,
 		    "bodyPadding": 10,
-		    "title": "форма",
+		    "title": "",
 		    "titleCollapse": false,
 		    "jsonSubmit": true,
 		    "method": "get",
@@ -612,7 +737,68 @@ Ext.onReady(function() {
 
 		    
 		    
-		    
+	////////////////////////////////////////////////////////////////////////////////////////	 
+	///  окно которое никогда не выйдет за границы экрана
+	infoWin = Ext.create('Ext.Window', {
+            title: 'Constrained Window',
+            
+            width: 250,
+            height: 300,
+            x: 20,
+            y: 20,
+            constrain: true,
+            layout: 'fit',
+            closable: false,
+            tools: [
+  	                {
+  	                    "xtype": "tool",
+  	                    "tooltip": "Справка",
+  	                    "type": "help",
+  	                    handler: function(){ infoWin.hide();}
+  	                }
+  	                ],
+  	        items: [				
+  	    		        new Ext.form.FormPanel({
+  	    		            frame: true,
+  	    		            
+  	    		            items: [     
+  	    		            { // HTML Content in windows
+	  	    					xtype: 'box',
+	  	    					width: '100%',
+	  	    			        height: '100%',
+	  	    					autoEl: {
+	  	    							tag: 'iframe',
+	  	    							src: 'add.jsp'
+  	    		          
+  	    		        		}  
+  	    		            }]
+  	    		 		})
+  	    		 ]
+          /* items:[ {xtype: 'form',
+            		items:[
+            
+            	
+		                    {
+		            	  		//border: false,
+		            	 		xtype: 'textfield',
+		                 		name: 'searchField',
+		                 		hideLabel: true,
+		                 		width: 200,
+		           		 	},{
+		            	  		//border: false,
+		            			xtype: 'textfield',
+		                		name: 'search1Fielda',
+		                		hideLabel: true,
+		                		width: 200,
+		            		}
+		           		 ]
+            		} 
+            	]*/
+			}).show();
+			
+	
+		 
+	    
 
 		    
 		    
@@ -632,8 +818,7 @@ Ext.onReady(function() {
     
 	
     
-    
-    
+
   
    
     

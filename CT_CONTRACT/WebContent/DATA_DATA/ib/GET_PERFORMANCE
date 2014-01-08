@@ -1,0 +1,23 @@
+create procedure GET_PERFORMANCE (
+    ID_DOGOVORA integer)
+returns (
+    PERFORMER varchar(500))
+as
+declare variable I integer;
+declare variable BUF varchar(500);
+begin
+
+PERFORMER='';
+For select
+          PERFORMER
+    from  dog_performer
+    where ID_DOG=:id_dogovora
+    into :
+          buf
+    Do begin
+
+     PERFORMER=buf||' <br> '||:performer;
+
+    end
+     suspend;
+end

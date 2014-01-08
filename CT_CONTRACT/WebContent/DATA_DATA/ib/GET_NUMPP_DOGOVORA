@@ -1,0 +1,106 @@
+create procedure GET_NUMPP_DOGOVORA
+returns (
+    I integer,
+    ID_DOG integer,
+    KONTROL varchar(255),
+    ID_COUNT integer,
+    ID_ACCOUNT integer,
+    NAMEDOG char(100),
+    NOM_DOG char(60),
+    DATA_W date,
+    SROK_PLAT date,
+    SUMMA numeric(15,2),
+    CURRENCY char(10),
+    NOTE varchar(500),
+    IS_DEL integer,
+    USER_FIO char(50),
+    STATUS char(2),
+    FULLNAMEDOG char(120),
+    PRIM char(50),
+    USL_POST char(150),
+    DATE_STATUS timestamp,
+    REG_NOM smallint,
+    REG_DATE timestamp,
+    REG_SECT char(5),
+    REG_INDEX char(10),
+    FULL_NUM char(25),
+    USER_FIO1 smallint,
+    COUNTERAGENT_FNAME varchar(500),
+    PERFORMER varchar(500),
+    RIGHTHOLDER varchar(500),
+    SUBDOG_PRED varchar(500),
+    SUBDOG_INPROCESS varchar(500))
+as
+begin
+I=0;
+    For select
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1,
+
+           (select  FULLNAMECOUNT from GET_COUNTERAGENT(:ID_COUNT)) counteragent_fname,
+           (select  performer from GET_PERFORMANCE(:ID_DOG))  performer,
+           '' rightholder,
+           (select SUBDOG from GET_DOG_NIOKR_SUBDOG(:ID_DOG,0)) subdog_pred,
+           (select SUBDOG from GET_DOG_NIOKR_SUBDOG(:ID_DOG,1)) subdog_inProcess
+    from DOGOVORA
+    into :
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1,
+
+           counteragent_fname,
+           performer,
+           rightholder,
+
+           subdog_pred,
+           subdog_inProcess
+    Do begin
+    /* performer=get_performance(:ID_DOG); */
+    /*performer=get_performance(ID_DOG);*/
+     i=i+1;
+    suspend;
+    end
+end

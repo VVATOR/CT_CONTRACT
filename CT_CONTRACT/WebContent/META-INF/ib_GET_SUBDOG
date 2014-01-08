@@ -1,0 +1,48 @@
+CREATE PROCEDURE GET_SUBDOC(tip integer, dog_id integer)
+RETURNS (
+    allper      VARCHAR(1500),
+    NUMBER      VARCHAR(500),
+    VID         VARCHAR(500),
+    "TYPE"      VARCHAR(500),
+    NAIM        VARCHAR(500),
+    DATE_ADD    VARCHAR(50),
+    ID_DOG      VARCHAR(500),
+    ID          VARCHAR(500)
+)
+AS
+begin
+/*I=0;*/
+    For select  NUMBER, VID, "TYPE", NAIM, DATE_ADD, ID_DOG, ID
+    FROM DOG_NIOKR_SUBDOC
+    into :  NUMBER,
+            VID,
+            "TYPE",
+            NAIM,
+            DATE_ADD,
+            ID_DOG,
+            ID
+    Do begin
+    if ("TYPE"=1) then
+    begin
+       if (VID='a') then
+          allper='a'||NAIM||' № '||'a'||NUMBER||'('||DATE_ADD||')[заявка]';
+       if (VID='f') then
+          allper=NAIM||' № '||'f'||NUMBER||'('||DATE_ADD||')[заявка]';
+       if (VID='u') then
+          allper=NAIM||' № '||'u'||NUMBER||'('||DATE_ADD||')[заявка]';
+    end
+    else
+    begin
+         allper=NAIM||' № '||'u'||NUMBER||'('||DATE_ADD||')[патент]';
+    end
+    /* i=i+1;  */
+    suspend;
+    end
+
+    /*
+    type-  1= заявка
+           2=патент
+    */
+
+
+end
