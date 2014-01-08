@@ -1,0 +1,119 @@
+CREATE PROCEDURE GET_NUMPP_DOGOVORA 
+RETURNS (
+    I INTEGER,
+    ID_DOG INTEGER,
+    KONTROL VARCHAR(255),
+    ID_COUNT INTEGER,
+    ID_ACCOUNT INTEGER,
+    NAMEDOG CHAR(100),
+    RESULTDOG VARCHAR(500),
+    NOM_DOG CHAR(60),
+    DATA_W DATE,
+    SROK_PLAT DATE,
+    SUMMA NUMERIC(15,2),
+    CURRENCY CHAR(10),
+    NOTE VARCHAR(500),
+    IS_DEL INTEGER,
+    USER_FIO CHAR(50),
+    STATUS CHAR(2),
+    FULLNAMEDOG CHAR(120),
+    PRIM CHAR(50),
+    USL_POST CHAR(150),
+    DATE_STATUS TIMESTAMP,
+    REG_NOM SMALLINT,
+    REG_DATE TIMESTAMP,
+    REG_SECT CHAR(5),
+    REG_INDEX CHAR(10),
+    FULL_NUM CHAR(25),
+    USER_FIO1 SMALLINT,
+    COUNTERAGENT_FNAME VARCHAR(500),
+    PERFORMER VARCHAR(500),
+    RIGHTHOLDER VARCHAR(500),
+    SUBDOG_PRED VARCHAR(500),
+    SUBDOG_INPROCESS VARCHAR(500))
+AS
+begin
+I=0;
+    For select
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1,
+           RESULTDOG,
+
+           (select FULLNAMECOUNT from GET_COUNTERAGENT(:ID_COUNT)) counteragent_fname,
+           (select performer     from GET_PERFORMANCE(:ID_DOG))  performer,
+           PRAVOOB  rightholder,
+           (select SUBDOG        from GET_DOG_NIOKR_SUBDOG(:ID_DOG,0)) subdog_pred,
+           (select SUBDOG        from GET_DOG_NIOKR_SUBDOG(:ID_DOG,1)) subdog_inProcess
+
+    from    DOGOVORA
+    order  by  ID_DOG
+
+    into :
+           ID_DOG,
+           KONTROL,
+           ID_COUNT,
+           ID_ACCOUNT,
+           NAMEDOG,
+           NOM_DOG,
+           DATA_W,
+           SROK_PLAT,
+           SUMMA,
+           CURRENCY,
+           NOTE,
+           IS_DEL,
+           USER_FIO,
+           STATUS,
+           FULLNAMEDOG,
+           PRIM,
+           USL_POST,
+           DATE_STATUS,
+           REG_NOM,
+           REG_DATE,
+           REG_SECT,
+           REG_INDEX,
+           FULL_NUM,
+           USER_FIO1,
+           RESULTDOG,
+
+           counteragent_fname,
+           performer,
+           rightholder,
+
+           subdog_pred,
+           subdog_inProcess
+    Do begin
+        if (rightholder is null) then
+        rightholder='';
+
+        if (RESULTDOG is null) then
+        RESULTDOG='';
+
+        if (FULLNAMEDOG is null) then
+        FULLNAMEDOG='';
+
+     i=i+1;
+    suspend;
+    end
+end

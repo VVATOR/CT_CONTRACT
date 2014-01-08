@@ -1,0 +1,39 @@
+/*   получение списка заказчиков (контрагентов)  autocomplete */
+/*SELECT  distinct counteragent.fullnamecount
+FROM DOGOVORA, counteragent
+where
+ counteragent.id_count=DOGOVORA.id_count
+ and counteragent.fullnamecount like '%алекс%'
+order by counteragent.fullnamecount ASC
+rows 1 to 15
+*/
+
+
+
+
+/*   получение списка правооблвдателей autocomplete */
+/*SELECT  distinct DOGOVORA.pravoob
+FROM DOGOVORA
+where
+ DOGOVORA.pravoob like '%1%'
+order by DOGOVORA.pravoob ASC
+rows 1 to 15
+*/
+
+
+
+
+
+
+
+/***********************************************/
+/* добавление исполнителя */
+/*INSERT INTO DOG_PERFORMER(PERFORMER, ID_DOG)
+VALUES ('aaaaaa', 72)*/
+/* получение исполнителей */
+/*SELECT distinct dog_performer.performer
+FROM dog_performer
+where
+    dog_performer.performer like '%a%'
+order by dog_performer.performer ASC
+rows 1 to 15           */
