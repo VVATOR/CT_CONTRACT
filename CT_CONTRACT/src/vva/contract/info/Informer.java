@@ -1,6 +1,7 @@
 package vva.contract.info;
 
 import vva.contract.data.db.SQLRequest;
+import vva.contract.data.db.interbase.IBRequest;
 
 public class Informer {
 
@@ -12,8 +13,8 @@ public class Informer {
 	 
 
 	public Informer()  throws Exception{
-		 SQLRequest sqlRequest = new SQLRequest();
-		 sqlRequest.sqlInformerInfo();
+		 IBRequest sqlRequest = new IBRequest();
+		 sqlRequest.sqlInformerInfo_IB();
 		 sqlRequest.rs.next();
 		 this.allContracts=sqlRequest.rs.getInt("allContracts");
 		 this.activeContracts=sqlRequest.rs.getInt("activeContracts");

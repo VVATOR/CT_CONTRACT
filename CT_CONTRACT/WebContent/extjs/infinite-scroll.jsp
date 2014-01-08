@@ -110,7 +110,9 @@ Ext.onReady(function() {
 		         'REG_SECT',
 		         'REG_INDEX',
 		         'FULL_NUM',
-		         'USER_FIO1'		         
+		         'USER_FIO1',
+		         
+		         'performer'
 			    ],
 		idProperty : 'threadid'
 	});
@@ -180,7 +182,7 @@ Ext.onReady(function() {
 	
 	
 	
-	var pluginExpanded = true; // для панели пэйджинга
+	//var pluginExpanded = true; // для панели пэйджинга
 	
 	var movieTpl = new Ext.XTemplate(
 		    '<tpl for="."><div class="movie-item">',
@@ -228,7 +230,24 @@ Ext.onReady(function() {
 	                rowBodyTpl : [  '<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>',         
 				                    '<div style="color: green;"> </div>',
 				                    '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',				                    
+				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
+				                    '<table class="pluginTAble" width=300px> ',
+				                    '	<thead> ',
+				                    '		<th scope="col">Номера охранных документов на ОППС, созданных в результате работ по договору: </th>',
+				                    '		<th scope="col">Номера охранных документов на ОППС:</th',
+				                    '	</thead> ',
+				                    '	<tbody ',
+				                    '	<tr> ',
+				                    '		<td> {performer}',
+				                    '		</td> ',
+				                    '		<td> ccc',
+				                    '		</td> ',
+				                    '	</tr> ',
+				                    '	<tr> ',
+				                    '	</tr> ',
+				                    '	</tbody>',
+				                    '</table> '
+					            
 				                 ]
 	            }], 
 	           
@@ -238,6 +257,12 @@ Ext.onReady(function() {
 	            ,   // - разделитель
 	            
 	            "columns": [
+	                {               		
+	                	"xtype": "gridcolumn",
+	                    "width": 45,
+	                    "dataIndex": "performer",
+	                    "text": "performer"
+	                },
 	                {
 	                    "xtype": "gridcolumn",
 	                    "width": 45,
@@ -596,7 +621,7 @@ Ext.onReady(function() {
 		    "height": 500,
 		    "width": 1200,
 		    "bodyPadding": 10,
-		    "title": "форма",
+		    "title": "",
 		    "titleCollapse": false,
 		    "jsonSubmit": true,
 		    "method": "get",

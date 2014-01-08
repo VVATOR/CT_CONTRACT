@@ -24,6 +24,27 @@
 <!--<img class="im" src="design/images/Contract-icon.png" height="16px"> -->
 
 <style type="text/css">
+.pluginTAble{
+margin: 10px;
+}
+
+.pluginTAble thead tr th  {
+ text-align: left; /* ¬ыравнивание по левому краю */
+    background: #ccc; /* ÷вет фона €чеек */
+    padding: 5px; /* ѕол€ вокруг содержимого €чеек */
+    border: 1px solid black; /* √раница вокруг €чеек */
+
+}
+.pluginTAble tbody tr td  {
+ text-align: left; /* ¬ыравнивание по левому краю */
+    background: #fff; /* ÷вет фона €чеек */
+    padding: 5px; /* ѕол€ вокруг содержимого €чеек */
+    border: 1px solid black; /* √раница вокруг €чеек */
+    
+}
+
+
+
 
 .imgGRD-edit{
     background: url(design/images/document-icon.png); /* ѕуть к файлу с исходным рисунком  */
@@ -96,7 +117,7 @@ background-color: lime;
         background-position: center;
         
     }
-
+ 
 	.footer_Menu li a {
     display: block;
     text-align: center;

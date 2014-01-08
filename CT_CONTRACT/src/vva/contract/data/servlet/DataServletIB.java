@@ -148,6 +148,10 @@ System.out.println("============================================================
 		try {
 			IBRequest ibRequest = new IBRequest();
 			ibRequest.getAllContractsWithFilter_IB(start,limit);
+			
+			//IBRequest ibReqPerformer = new IBRequest();
+			//ibReqPerformer.getAllPerformerWithFilter_IB(start,limit);
+			
 			JSONArray arrayObj = new JSONArray();
 			while (ibRequest.rs.next()){
 				
@@ -156,6 +160,26 @@ System.out.println("============================================================
 				JSONObject jon = new JSONObject();
 					jon.put("I", ibRequest.rs.getString("i"));
 					jon.put("ID_DOG", fPerformer+ibRequest.rs.getString("ID_DOG"));
+					
+					//System.out.print(ibRequest.rs.getString("ID_DOG")+"[");
+							/*	String performers="";	
+								
+								//ibReqPerformer.rs(TYPE_SCROLL_INSENSITIVE);
+								//ibReqPerformer.rs.next();
+										while(ibReqPerformer.rs.next() 
+											 )
+										{	
+											if(ibReqPerformer.rs.getString("id_dog").equals(ibRequest.rs.getString("id_dog"))){
+										      performers+=ibReqPerformer.rs.getString("performer")+ "<br>";
+										      System.out.print(ibReqPerformer.rs.getString("id_dog")+";");
+		$jquery('#')									}
+										}		
+										
+					System.out.println("]");
+							 */
+						jon.put("performer",ibRequest.rs.getString("performer"));
+					
+					
 					jon.put("KONTROL", fCustomer+ ibRequest.rs.getString("KONTROL"));
 					jon.put("ID_COUNT",fRightholder+ ibRequest.rs.getString("ID_COUNT"));
 					jon.put("ID_ACCOUNT", ibRequest.rs.getString("ID_ACCOUNT"));
@@ -179,7 +203,8 @@ System.out.println("============================================================
 					jon.put("REG_SECT", ibRequest.rs.getString("REG_SECT"));
 					jon.put("REG_INDEX", ibRequest.rs.getString("REG_INDEX"));
 					jon.put("FULL_NUM", ibRequest.rs.getString("FULL_NUM"));
-					jon.put("USER_FIO1", ibRequest.rs.getString("USER_FIO1"));				
+					jon.put("USER_FIO1", ibRequest.rs.getString("USER_FIO1"));		
+					
 				arrayObj.put(jon);
 
 			}
@@ -203,6 +228,7 @@ System.out.println("============================================================
 	
 }
 
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
