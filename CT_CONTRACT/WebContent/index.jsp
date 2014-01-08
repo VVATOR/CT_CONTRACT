@@ -24,6 +24,27 @@
 <!--<img class="im" src="design/images/Contract-icon.png" height="16px"> -->
 
 <style type="text/css">
+.pluginTAble{
+margin: 10px;
+}
+
+.pluginTAble thead tr th  {
+ text-align: left; /* Выравнивание по левому краю */
+    background: #ccc; /* Цвет фона ячеек */
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+
+}
+.pluginTAble tbody tr td  {
+ text-align: left; /* Выравнивание по левому краю */
+    background: #fff; /* Цвет фона ячеек */
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+    
+}
+
+
+
 
 .imgGRD-edit{
     background: url(design/images/document-icon.png); /* Путь к файлу с исходным рисунком  */
@@ -96,7 +117,7 @@ background-color: lime;
         background-position: center;
         
     }
-
+ 
 	.footer_Menu li a {
     display: block;
     text-align: center;
@@ -156,6 +177,9 @@ li.status-ok{
 </style>
 </head>
 <body>
+
+<img src='\lamp_on.jpg'>
+
 <div style="width: 100%; height: 30px; background-color: #00ff00;">
 Пользователь: (<%=System.getProperty("user.name") %>) /
 Права: <% 

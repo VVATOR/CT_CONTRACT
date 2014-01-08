@@ -110,7 +110,11 @@ Ext.onReady(function() {
 		         'REG_SECT',
 		         'REG_INDEX',
 		         'FULL_NUM',
-		         'USER_FIO1'		         
+		         'USER_FIO1',
+		         
+		         'performer',
+		         'subdog_pred',
+		         'subdog_inProcess'
 			    ],
 		idProperty : 'threadid'
 	});
@@ -180,7 +184,7 @@ Ext.onReady(function() {
 	
 	
 	
-	var pluginExpanded = true; // для панели пэйджинга
+	//var pluginExpanded = true; // для панели пэйджинга
 	
 	var movieTpl = new Ext.XTemplate(
 		    '<tpl for="."><div class="movie-item">',
@@ -219,7 +223,7 @@ Ext.onReady(function() {
 	            }
 	            
 	            
-	            <% /// если пользователь имеет доступ то показать ему сумму
+	            <% // если пользователь имеет доступ то показать ему сумму
 	               if(ACCESS.equals("0")){           			
     			%> 
     			,  // - разделитель
@@ -228,16 +232,45 @@ Ext.onReady(function() {
 	                rowBodyTpl : [  '<div color=black> Сумма: <font color=red> {SUMMA} </font> {CURRENCY}</div>',         
 				                    '<div style="color: green;"> </div>',
 				                    '<p><b>Номера охранных документов на ОППС, созданных в результате работ по договору:</b> <br> {ID_DOG}</p>',
-				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',				                    
+				                    '<p><b>Номера охранных документов на ОППС:</b> <br> {ID_DOG}</p><br>',
+				                   
+			                 // '<script>',
+			                 // ' if("{subdog_pred}"!="" || "{subdog_inProcess}"!=""){ ',
+				                    '<table class="pluginTAble"> ',
+				                    '	<thead> ',
+				                    '		<th width="400px" scope="col">Номера охранных документов на ОППС, созданных в результате работ по договору: </th>',
+				                    '		<th width="400px" scope="col">Номера охранных документов на ОППС:</th',
+				                    '	</thead> ',
+				                    '	<tbody ',
+				                    '	<tr> ',
+				                    '		<td> {subdog_pred}',
+				                    '		</td> ',
+				                    '		<td> {subdog_inProcess}',
+				                    '		</td> ',
+				                    '	</tr> ',
+				                    '	<tr> ',
+				                    '	</tr> ',
+				                    '	</tbody>',
+				                    '</table> '
+			                  //'<script>',
+			                 // '} '
+					            
 				                 ]
 	            }], 
 	           
 	            collapsible: true,
 	            collapse: true
 				<% } %>
-	            ,   // - разделитель
-	            
+				
+				
+	            ,   // - разделитель	            
 	            "columns": [
+	                {               		
+	                	"xtype": "gridcolumn",
+	                    "width": 45,
+	                    "dataIndex": "performer",
+	                    "text": "performer"
+	                },
 	                {
 	                    "xtype": "gridcolumn",
 	                    "width": 45,
@@ -596,7 +629,7 @@ Ext.onReady(function() {
 		    "height": 500,
 		    "width": 1200,
 		    "bodyPadding": 10,
-		    "title": "форма",
+		    "title": "",
 		    "titleCollapse": false,
 		    "jsonSubmit": true,
 		    "method": "get",

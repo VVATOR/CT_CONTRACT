@@ -37,6 +37,7 @@ public class DataServletIB extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setHeader("Cache-Control", "no-cache");
 		/////////////////////////////////////////////////////////////////////
 		/// set content encoding for response
 		/////////////////////////////////////////////////////////////////////
@@ -148,6 +149,10 @@ System.out.println("============================================================
 		try {
 			IBRequest ibRequest = new IBRequest();
 			ibRequest.getAllContractsWithFilter_IB(start,limit);
+			
+			//IBRequest ibReqPerformer = new IBRequest();
+			//ibReqPerformer.getAllPerformerWithFilter_IB(start,limit);
+			
 			JSONArray arrayObj = new JSONArray();
 			while (ibRequest.rs.next()){
 				
@@ -155,9 +160,9 @@ System.out.println("============================================================
 				
 				JSONObject jon = new JSONObject();
 					jon.put("I", ibRequest.rs.getString("i"));
-					jon.put("ID_DOG", fPerformer+ibRequest.rs.getString("ID_DOG"));
-					jon.put("KONTROL", fCustomer+ ibRequest.rs.getString("KONTROL"));
-					jon.put("ID_COUNT",fRightholder+ ibRequest.rs.getString("ID_COUNT"));
+					jon.put("ID_DOG", ibRequest.rs.getString("ID_DOG"));
+					jon.put("KONTROL", ibRequest.rs.getString("KONTROL"));
+					jon.put("ID_COUNT", ibRequest.rs.getString("ID_COUNT"));
 					jon.put("ID_ACCOUNT", ibRequest.rs.getString("ID_ACCOUNT"));
 					jon.put("NAMEDOG", ibRequest.rs.getString("NAMEDOG"));
 					jon.put("NOM_DOG", ibRequest.rs.getString("NOM_DOG"));
@@ -179,7 +184,30 @@ System.out.println("============================================================
 					jon.put("REG_SECT", ibRequest.rs.getString("REG_SECT"));
 					jon.put("REG_INDEX", ibRequest.rs.getString("REG_INDEX"));
 					jon.put("FULL_NUM", ibRequest.rs.getString("FULL_NUM"));
-					jon.put("USER_FIO1", ibRequest.rs.getString("USER_FIO1"));				
+					jon.put("USER_FIO1", ibRequest.rs.getString("USER_FIO1"));		
+
+																						//System.out.print(ibRequest.rs.getString("ID_DOG")+"[");
+																						/*	String performers="";	
+																							
+																							//ibReqPerformer.rs(TYPE_SCROLL_INSENSITIVE);
+																							//ibReqPerformer.rs.next();
+																									while(ibReqPerformer.rs.next() 
+																										 )
+																									{	
+																										if(ibReqPerformer.rs.getString("id_dog").equals(ibRequest.rs.getString("id_dog"))){
+																									      performers+=ibReqPerformer.rs.getString("performer")+ "<br>";
+																									      System.out.print(ibReqPerformer.rs.getString("id_dog")+";");
+																									}
+																									}		
+																									
+																				System.out.println("]");
+																						 */
+					jon.put("performer",ibRequest.rs.getString("performer"));
+					jon.put("subdog_pred",ibRequest.rs.getString("subdog_pred"));
+					jon.put("subdog_inProcess",""+ibRequest.rs.getString("subdog_inProcess"));
+
+					
+					
 				arrayObj.put(jon);
 
 			}
@@ -203,6 +231,7 @@ System.out.println("============================================================
 	
 }
 
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
